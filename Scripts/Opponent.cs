@@ -6,24 +6,19 @@ using System;
 
 public class Opponent : MonoBehaviour
 {
-    [SerializeField]
-    private float yThrowForce = 1f;
-    [SerializeField]
-    private float zThrowForce = 15f;
+    [SerializeField]private float yThrowForce = 1f;
+    [SerializeField]private float zThrowForce = 15f;
+    [Range(3f,5f)] public float fireDuration;
 
-    
     public TMP_Text scoreText;
     public int score;
     private Rigidbody pintRigidBody;
 
     public bool isOnFire;
-
-    [Range(3f,5f)]
-    public float fireDuration;
     public int consecutiveShots;
     public int scoreMultiplier;
     private Pint pintScript;
-    // Start is called before the first frame update
+    
     protected void Start()
     {   
         //InitVariables()
@@ -34,12 +29,12 @@ public class Opponent : MonoBehaviour
 
         pintRigidBody = GetComponentInChildren<Rigidbody>();
         if(!pintRigidBody){
-            Debug.LogError("Pint RigidBosy NOT FOUND");
+            Debug.LogError("Pint RigidBody Not found");
         }
 
         pintScript = GetComponentInChildren<Pint>();
         if(!pintScript){
-            Debug.LogError("Pint Script NOT FOUND");
+            Debug.LogError("Pint Script Not found");
         }
     }
 

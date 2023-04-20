@@ -11,20 +11,13 @@ public class Pint : MonoBehaviour
     private Vector3 startPosition;
     private GameManager gameManager;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
         startPosition = transform.position;
-
         thrower = transform.parent.gameObject;
-        gameManager = FindObjectOfType<GameManager>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        rigidBody = GetComponent<Rigidbody>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public Rigidbody getRigidBody(){
@@ -34,9 +27,7 @@ public class Pint : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag =="Floor"){
             ResetPosition();
-            
             FindObjectOfType<AudioManager>().Play("Floor Touch");
-
             thrower.GetComponent<Opponent>().consecutiveShots = 0;
         }    
     }

@@ -340,8 +340,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.060012817
-        value: 0.3987732
+        time: 0.040130615
+        value: 0.7247467
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -657,10 +657,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yThrowForce: 1
   zThrowForce: 15
+  fireDuration: 5
   scoreText: {fileID: 2046739261}
   score: 0
   isOnFire: 0
-  fireDuration: 5
   consecutiveShots: 0
   scoreMultiplier: 0
 --- !u!1 &663951439
@@ -2282,7 +2282,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345712365}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2484,10 +2484,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yThrowForce: 1
   zThrowForce: 15
+  fireDuration: 5
   scoreText: {fileID: 1094866364}
   score: 0
   isOnFire: 0
-  fireDuration: 5
   consecutiveShots: 0
   scoreMultiplier: 0
 --- !u!114 &1826787344

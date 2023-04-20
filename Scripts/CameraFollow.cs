@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -11,13 +9,13 @@ public class CameraFollow : MonoBehaviour
        player = GameObject.FindGameObjectWithTag("Camera Target"); 
     }
     
-    void Start()
+    private void Start()
     {
         transform.position = player.transform.position;
         offset = transform.position - player.transform.position;
     }
 
-    void Update()
+    private void Update()
     {
         transform.position =new Vector3(player.transform.position.x + offset.x, player.transform.position.y + offset.y, player.transform.position.z -10f) ;
     }

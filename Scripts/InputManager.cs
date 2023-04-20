@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     }
 
 
-    /* When a contact starts or is canceled, return the position and the time it occurred (via context) */ 
+    /* When a contact starts or is canceled, return the position and the time it occurred (via CallbackContext variable) */ 
     private void StartTouchPrimary(InputAction.CallbackContext ctx) { 
         if (OnStartContact != null) 
             OnStartContact(GetScreenPosition(), (float)ctx.startTime); 
@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
         DetectSwipe();
     }
 
-    /* */
+    /* Called at the end of the Swipe */
     private void DetectSwipe()
     {
         if(Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) < maximumTime)
@@ -101,7 +101,7 @@ public class InputManager : MonoBehaviour
         {
             if (OnSwipeDown != null) OnSwipeDown();
         }
-        
+
     }
 
     public Vector2 GetScreenPosition() { return playerControls.InGame.PrimaryPosition.ReadValue<Vector2>(); }
