@@ -7,10 +7,24 @@ public class Utils : MonoBehaviour
         return cam.ScreenToWorldPoint(position);
     }
 
-    private static float NormalizedDifference(float a, float b){
+    public static float NormalizedDifference(float a, float b){
         float diff;
-        diff = (a - b) / Screen.height;
+        diff = (a - b);
         return diff;
+    }
+
+    public static GameObject GetChildWithName(GameObject parent, string name){
+        Transform childTransform = parent.transform.Find(name);
+        if (childTransform != null) {
+            return childTransform.gameObject;
+        } else {
+            return null;
+        }
+    }
+
+    public static void LookAtLockedY(Transform sourceT, Transform targetT){
+        Vector3 targetPosition = new Vector3 (targetT.position.x, sourceT.position.y ,targetT.position.z);
+        sourceT.LookAt(targetPosition);
     }
 
 }

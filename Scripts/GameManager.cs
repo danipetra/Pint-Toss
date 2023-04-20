@@ -5,15 +5,14 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [Range(20f, 60f)]
-    public float gameTime = 60f;
-
-    [Range(1,3)]
-    public int scorePoints = 2;
+    
+    [Range(20, 60)]public int gameTime = 60;
+    [Range(1,3)]public int scorePoints = 2;
     public TMP_Text timeText;
 
     private GameObject player;
     private GameObject enemy;
+    private GameObject bucket;
     private SceneLoader sceneLoader;
     private float timeLeft;
 
@@ -21,8 +20,14 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+        bucket = GameObject.FindGameObjectWithTag("Objective");
         sceneLoader = GetComponent<SceneLoader>();
-        timeLeft = gameTime;
+        timeLeft = (float)gameTime;
+    }
+
+    private void Start() {
+        //SpawnOpponent(player);
+        //SpawnOpponent(enemy);
     }
 
     void Update()
@@ -47,12 +52,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore(GameObject opponent, TMP_Text opponentText){  
-        opponent.GetComponent<Opponent>().score += scorePoints * opponent.GetComponent<Opponent>().scoreMultiplier;
-        opponentText.text = opponent.GetComponent<Opponent>().score.ToString();
+        opponent.GetComponent<Opponent>().IncreaseScore(scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier());
+        opponentText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
     } 
 
     private void ChooseWinner(){
-        if(player.GetComponent<Opponent>().score >= enemy.GetComponent<Opponent>().score){
+        if(player.GetComponent<Opponent>().GetScore() >= enemy.GetComponent<Opponent>().GetScore()){
             Debug.LogWarning("MISSING Implement Win Scene!");
             AddMoneyToPlayer();
             //sceneLoader.LoadScene("WinScene");
@@ -65,5 +70,17 @@ public class GameManager : MonoBehaviour
     
     private void AddMoneyToPlayer(){
 
-    }    
+    } 
+
+    public void SpawnOpponent(GameObject Opponent){
+        
+        int randomAngle = Random.Range(-165, 165);
+        
+        //Rotate the opponent around the bucket y axis for a angle value
+        Opponent.transform.Rotate(bucket.transform.position, randomAngle, Space.World);
+        // Rotate him to face the bucket
+
+        // Rotate the camera according to that
+    }   
+    
 }

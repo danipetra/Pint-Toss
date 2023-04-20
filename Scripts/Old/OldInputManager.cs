@@ -69,7 +69,7 @@ public class OldInputManager : MonoBehaviour
                 var output = JsonUtility.ToJson(swipeData, true);
                 Debug.Log("END" + output);
 
-                playerScript.ThrowPint(playerPint, direction, forceSlider.value);
+                playerScript.ThrowPint(direction, forceSlider.value);
         }
         
         }     

@@ -26,9 +26,11 @@ public class InputManager : MonoBehaviour
     private float startTime, endTime;
 
     private PlayerControls playerControls;
+    private GameObject player;
 
     private void Awake() {
         playerControls = new PlayerControls();
+        player = GameObject.FindGameObjectWithTag( "Player" );
     } 
 
     private void OnEnable()
@@ -84,9 +86,16 @@ public class InputManager : MonoBehaviour
     {
         if(Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) < maximumTime)
         {
-            Vector3 direction = endPosition - startPosition;
+            
+            Vector3 direction = endPosition + startPosition;
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
             SwipeDirection(direction2D);
+
+            //TODO calculate the right direction and do not make it depend on swipe
+            
+            float swipeIntensity = Utils.NormalizedDifference(endPosition.y, startPosition.y);
+            Debug.Log(swipeIntensity);
+            player.GetComponent<Opponent>().ThrowPint(direction2D, swipeIntensity);
         }
     }
 
