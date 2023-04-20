@@ -7,9 +7,9 @@ using System;
 public class Opponent : MonoBehaviour
 {
     [SerializeField]
-    public float yThrowForce = 1f;
+    private float yThrowForce = 1f;
     [SerializeField]
-    public float zThrowForce = 15f;
+    private float zThrowForce = 15f;
 
     
     public TMP_Text scoreText;

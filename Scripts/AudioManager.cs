@@ -6,28 +6,16 @@ using System.Collections;
 using System;
 
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     public Sound[] sounds;
     private static AudioManager instance;
     public float sceneTransitionTime = 0.4f;
+
+    /* Mixer was controlled to edit its settings via options menu and PlayerPrefs */
     //public AudioMixerGroup audioMixerGroup;
     //public AudioMixer audioMixer;
     //public OptionsLoader optionsLoader;
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
 
     private void Start()
     {
@@ -53,12 +41,12 @@ public class AudioManager : MonoBehaviour
 
     public void Update()
     {
-        if(SceneManager.GetActiveScene().name == "MainScene")
+        if(SceneManager.GetActiveScene().name == "Game")
         {
             Pause("Main Theme");
         }
 
-        if (SceneManager.GetActiveScene().name != "MainScene")
+        if (SceneManager.GetActiveScene().name != "Game")
         {
             UnPause("Main Theme");
         }

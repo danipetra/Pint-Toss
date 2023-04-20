@@ -1,14 +1,14 @@
 {
-    "name": "SwipeControls",
+    "name": "PlayerControls",
     "maps": [
         {
-            "name": "Touch",
-            "id": "44c07124-461f-4340-adf3-9f3c699e6f56",
+            "name": "InGame",
+            "id": "860194f3-69bb-4cdb-af2b-9189d8c330c4",
             "actions": [
                 {
                     "name": "PrimaryContact",
                     "type": "PassThrough",
-                    "id": "c23b33de-1c3c-4b48-a377-baf26645d9a5",
+                    "id": "15eab9e0-20cb-495b-9b84-27bb9501934a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -16,18 +16,18 @@
                 },
                 {
                     "name": "PrimaryPosition",
-                    "type": "Value",
-                    "id": "19253ef2-048b-429f-b736-ab371a55ec7b",
+                    "type": "PassThrough",
+                    "id": "495fdf07-61a2-47c4-ab69-86719ab7ad66",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "29a8d69a-0385-4bc7-b97f-606aaf477590",
+                    "id": "ec687ca3-6650-4394-8a98-7b215cc50370",
                     "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
@@ -38,7 +38,7 @@
                 },
                 {
                     "name": "",
-                    "id": "fc550a80-39cd-41af-beba-b2f969ad6d87",
+                    "id": "b981a860-719f-4273-8762-033d7273d1ff",
                     "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
