@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
@@ -7,14 +5,14 @@ using System;
 public class Opponent : MonoBehaviour
 {
     [Range(3f,5f)] public float fireDuration;
-
     // TODO make private
     public TMP_Text scoreText;
+    
+    [SerializeField]protected int force;
     [SerializeField]private int score;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
-
     private GameObject pint;
 
     protected void Start()
@@ -47,16 +45,16 @@ public class Opponent : MonoBehaviour
 
     public void ThrowPint(Vector2 direction, float force){
         if(pint.GetComponent<Pint>().canBeThrown){
+            transform.DetachChildren();
             pint.GetComponent<Rigidbody>().isKinematic = false;
+            pint.GetComponent<Pint>().canBeThrown = false;
+            pint.GetComponent<Rigidbody>().useGravity = true;
             
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
                 0, //should be: direction.x * force
                 force
             );
-
-            pint.GetComponent<Pint>().canBeThrown = false;
-            pint.GetComponent<Rigidbody>().useGravity = true;
         }
     }
 

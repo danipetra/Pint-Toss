@@ -23,8 +23,8 @@ public class Utils : MonoBehaviour
     }
 
     public static void LookAtLockedY(Transform sourceT, Transform targetT){
-        Vector3 targetPosition = new Vector3 (targetT.position.x, sourceT.position.y ,targetT.position.z);
-        sourceT.LookAt(targetPosition);
+        Vector3 lookPosition = new Vector3 (targetT.position.x, sourceT.position.y ,targetT.position.z);
+        sourceT.LookAt(lookPosition);
     }
 
 }

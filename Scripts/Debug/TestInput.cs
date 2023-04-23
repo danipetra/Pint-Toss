@@ -31,5 +31,12 @@ public class TestInput : MonoBehaviour
 
     private void OnSwipeUp() => Debug.Log("Up swipe detected");
     private void OnSwipeDown() => Debug.Log("Down swipe detected");
+
+    public IEnumerator TraceTrail(){
+        while(true){
+            trail.transform.position = inputManager.GetScreenPosition();
+            yield return null;// in this way you do not wait until next call
+        }
+    }
     
 }

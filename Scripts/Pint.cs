@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 public class Pint : MonoBehaviour
 {
     public bool canBeThrown = true;
@@ -16,44 +13,49 @@ public class Pint : MonoBehaviour
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-
+        thrower = transform.parent.gameObject;
         rigidBody = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    public Rigidbody getRigidBody(){
-        return rigidBody;
-    } 
-
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag =="Floor"){
-            ResetPosition();
             FindObjectOfType<AudioManager>().Play("Floor Touch");
             thrower.GetComponent<Opponent>().SetComboValue(0);
+            
+            // Respawn me and my thrower
+            ResetPosition();
+            //gameManager.SpawnOpponent(thrower);
         }    
     }
 
      private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.name =="Bucket"){
-            Debug.LogWarning("You Scored!");
-
+        if(other.gameObject.tag =="ScoreArea"){;
+            FindObjectOfType<AudioManager>().Play("Floor Touch");     
             FindObjectOfType<AudioManager>().Play("Score");
-            FindObjectOfType<AudioManager>().Play("Floor Touch");
-
             gameManager.AddScore(thrower, thrower.GetComponent<Opponent>().scoreText);
-            thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() +1 );
+            thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
 
+            // Respawn me and my thrower
             ResetPosition();
+            //gameManager.SpawnOpponent(thrower);
         }    
     }
 
     public void ResetPosition(){
-        transform.position = startPosition;
-        transform.rotation = startRotation;
+        transform.position = startPosition/*new Vector3(0,0,0)*/;
+        transform.rotation = startRotation/*new Quaternion(0,0,0,0)*/;
         rigidBody.useGravity = false;
         canBeThrown = true;
-        //Removing previous forces
+        /* Removing previous forces applied while throwing*/
         rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero; 
+        rigidBody.angularVelocity = Vector3.zero;
+        transform.parent = thrower.transform;
     }
+
+    
+    public Rigidbody getRigidBody(){
+        return rigidBody;
+    } 
+
 }

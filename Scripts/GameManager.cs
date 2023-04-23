@@ -69,18 +69,15 @@ public class GameManager : MonoBehaviour
     }
     
     private void AddMoneyToPlayer(){
-
+        Debug.LogWarning("MISSING Add money to player function!");
     } 
 
-    public void SpawnOpponent(GameObject Opponent){
-        
-        int randomAngle = Random.Range(-165, 165);
-        
-        //Rotate the opponent around the bucket y axis for a angle value
-        Opponent.transform.Rotate(bucket.transform.position, randomAngle, Space.World);
-        // Rotate him to face the bucket
+    /*public void SpawnOpponent(GameObject opponent){
+        //Assign the player a position
+            //Base it on a grid or on a rotation around the bucket
 
-        // Rotate the camera according to that
-    }   
+
+        Utils.LookAtLockedY(opponent.transform, bucket.transform);
+    } */  
     
 }

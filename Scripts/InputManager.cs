@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private GameObject player;
+    private Coroutine coroutine;
 
     private void Awake() {
         playerControls = new PlayerControls();
@@ -70,6 +71,7 @@ public class InputManager : MonoBehaviour
 
     private void SwipeStart(Vector2 position, float time)
     {
+        coroutine = StartCoroutine(player.GetComponent<Player>().IncreaseForce("Swiping"));
         startPosition = position;
         startTime = time;
     }
@@ -78,23 +80,23 @@ public class InputManager : MonoBehaviour
     {
         endPosition = position;
         endTime = time;
+        StopCoroutine(coroutine);
         DetectSwipe();
     }
 
     /* Called at the end of the Swipe */
     private void DetectSwipe()
     {
-        if(Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) < maximumTime)
+        if(Vector3.Distance(startPosition, endPosition) >= minimumDistance 
+            && (endTime - startTime) < maximumTime)
         {
             
             Vector3 direction = endPosition + startPosition;
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
             SwipeDirection(direction2D);
-
-            //TODO calculate the right direction and do not make it depend on swipe
             
             float swipeIntensity = Utils.NormalizedDifference(endPosition.y, startPosition.y);
-            Debug.Log(swipeIntensity);
+            Debug.Log("Swipe intensity: " + swipeIntensity);
             player.GetComponent<Opponent>().ThrowPint(direction2D, swipeIntensity);
         }
     }
