@@ -1,5 +1,6 @@
+TODO TOMORROW:
+
 TODO:
-Enemy IA, basata sullo scegliere una intensità del tiro random (scegliere una distribuzione cubica)
 FIX reset dello slider ad ogni impatto della palla col suolo (e non con un nuovo input del player)
 Tabellone combo (straight forward)
 FIX normalizzare lo swipe tra desktop e mobile
@@ -10,14 +11,15 @@ Reskin pint
 
 
 In Progress:
-Fissare la direzione del lancio ed agire solo sulla potenza.
-Aumentare la potenza (e di conseguenza lo slider.value) solo se il tocco continua verso l'alto (input.touchPosition.y) mentre bloccare l'aumento se il tocco va verso il basso o non sale.
+Enemy IA, chooses a random value between 0 and 1, as the player, but without the slider. The more is near 1 the more time it takes(chose a cubic distribution)
 
 Complete:
 Audio Manager
-OnFire system (da completare e testare)
+OnFire system base(To complete)
 Camera Follow
 Refactoring
-Tocco basato su tempo limitato
-Slider della forza
+Touch timer
+Force Slider
 Score system
+Fix X throw force and use direction of Ball game object instead 
+Input system and slider update, Throw based on slider value

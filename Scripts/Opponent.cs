@@ -9,6 +9,7 @@ public class Opponent : MonoBehaviour
     public TMP_Text scoreText;
     
     [SerializeField, Range(10, 25)]public int force; //TODO change it to protected
+    [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private int yForceDividend;
     [SerializeField]private int score;
     private bool isOnFire;
