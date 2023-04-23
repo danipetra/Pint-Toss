@@ -7,9 +7,9 @@ public class Utils : MonoBehaviour
         return cam.ScreenToWorldPoint(position);
     }
 
-    public static float NormalizedDifference(float a, float b){
+    public static float NormalizedDifference(float a, float b, float max, float min){
         float diff;
-        diff = (a - b);
+        diff = (a - b)/ (max - min);
         return diff;
     }
 

@@ -72,12 +72,13 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("MISSING Add money to player function!");
     } 
 
-    /*public void SpawnOpponent(GameObject opponent){
+    public void SpawnOpponent(GameObject opponent){
+        if(opponent.name == "Player") opponent.GetComponent<Player>().ResetThrow(); else opponent.GetComponent<Opponent>().ResetThrow();
         //Assign the player a position
             //Base it on a grid or on a rotation around the bucket
 
 
-        Utils.LookAtLockedY(opponent.transform, bucket.transform);
-    } */  
+        // Utils.LookAtLockedY(opponent.transform, bucket.transform);
+    }
     
 }

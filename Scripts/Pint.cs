@@ -3,10 +3,11 @@ public class Pint : MonoBehaviour
 {
     public bool canBeThrown = true;
 
-    private GameObject thrower;
-    private Rigidbody rigidBody;
+
     private Vector3 startPosition;
     private Quaternion startRotation;
+    private GameObject thrower;
+    private Rigidbody rigidBody;
     private GameManager gameManager;
 
     private void Awake()
@@ -24,8 +25,8 @@ public class Pint : MonoBehaviour
             thrower.GetComponent<Opponent>().SetComboValue(0);
             
             // Respawn me and my thrower
-            ResetPosition();
-            //gameManager.SpawnOpponent(thrower);
+            Reset();
+            gameManager.SpawnOpponent(thrower);
         }    
     }
 
@@ -37,12 +38,12 @@ public class Pint : MonoBehaviour
             thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
 
             // Respawn me and my thrower
-            ResetPosition();
-            //gameManager.SpawnOpponent(thrower);
+            Reset();
+            gameManager.SpawnOpponent(thrower);
         }    
     }
 
-    public void ResetPosition(){
+    public void Reset(){
         transform.position = startPosition/*new Vector3(0,0,0)*/;
         transform.rotation = startRotation/*new Quaternion(0,0,0,0)*/;
         rigidBody.useGravity = false;

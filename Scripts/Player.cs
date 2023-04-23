@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Player : Opponent{
 
-    private GameObject forceSliderO;
+    private GameObject forceSliderObj;
     
     new void Start()
     {
         base.Start();
 
-        forceSliderO = (GameObject)GameObject.Find("Force Slider");
-        if(!forceSliderO) Debug.LogError("Force Slider GameObject not found");
+        forceSliderObj = GameObject.Find("Force Slider");
+        if(!forceSliderObj) Debug.LogError("Force Slider GameObject not found");
     }
 
     new void Update()
@@ -19,14 +18,16 @@ public class Player : Opponent{
         base.Update();
     }
 
-    public IEnumerator IncreaseForce(string s){
-        while(true){
-            Debug.Log(s);
-            //Increase slider value
-            forceSliderO.GetComponent<Slider>().value++;
-            //Increase force
-            yield return null;
-        }
+    /* TODO: try to move it to InputManager */
+    
+
+    new public void ResetThrow(){
+        base.ResetThrow();
+        forceSliderObj.GetComponent<Slider>().value = 0;
+    }
+
+    public GameObject GetSlider(){
+        return forceSliderObj;
     }
 
 }

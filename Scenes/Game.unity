@@ -657,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDuration: 5
   scoreText: {fileID: 2046739261}
+  force: 0
   score: 0
 --- !u!1 &663951439
 GameObject:
@@ -2293,8 +2294,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumDistance: 15
-  maximumTime: 1
+  maximumTime: 1.2
   directionThreshold: 0.9
+  _sliderDecrease: 250
 --- !u!1 &1622859249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,6 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDuration: 5
   scoreText: {fileID: 1094866364}
+  force: 35
   score: 0
 --- !u!114 &1826787344
 MonoBehaviour:

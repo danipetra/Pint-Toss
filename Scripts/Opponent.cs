@@ -8,7 +8,7 @@ public class Opponent : MonoBehaviour
     // TODO make private
     public TMP_Text scoreText;
     
-    [SerializeField]protected int force;
+    [SerializeField, Range(10, 50)]public int force = 10; //TODO change it to protected
     [SerializeField]private int score;
     private bool isOnFire;
     private int comboValue;
@@ -58,6 +58,10 @@ public class Opponent : MonoBehaviour
         }
     }
 
+    public void ResetThrow(){
+        //force = 0;
+    }
+
     public void Loose(){
 
     }
@@ -94,6 +98,4 @@ public class Opponent : MonoBehaviour
         return scoreMultiplier;
     }
     
-    
-
 }
