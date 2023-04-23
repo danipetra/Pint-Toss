@@ -658,6 +658,7 @@ MonoBehaviour:
   fireDuration: 5
   scoreText: {fileID: 2046739261}
   force: 0
+  yForceDividend: 0
   score: 0
 --- !u!1 &663951439
 GameObject:
@@ -2296,7 +2297,7 @@ MonoBehaviour:
   minimumDistance: 15
   maximumTime: 1.2
   directionThreshold: 0.9
-  _sliderDecrease: 250
+  _timeMultiplyer: 10
 --- !u!1 &1622859249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDuration: 5
   scoreText: {fileID: 1094866364}
-  force: 35
+  force: 16
+  yForceDividend: 2
   score: 0
 --- !u!114 &1826787344
 MonoBehaviour:
@@ -3132,8 +3134,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5882448669794455999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.05}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1989091699}

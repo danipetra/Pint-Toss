@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour
     [SerializeField, Range(0f, 30f)] private float minimumDistance = 15f;
     [SerializeField, Range(0.5f, 2f)] private float maximumTime = 1.2f;
     [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
-    //[SerializeField, Range(0f, 500f)] private float _sliderDecrease = 10f; // Needed to avoid to update the slider to fast
+    [SerializeField, Range(0f, 25f)] private float _timeMultiplyer = 10f; // Needed to avoid to update the slider to fast
 
     private Vector2 startPosition, endPosition;
     private float startTime, endTime;
@@ -88,7 +88,7 @@ public class InputManager : MonoBehaviour
     public IEnumerator SwipeUpdate(float startTime){
         float totalTime;
         Vector2 screenPos;
-        float yMovement; 
+        float speed; 
         float yMaxMovement;
         
         yMaxMovement = Screen.height; // assuming that the max speed is obtained covering the entire screen in the given max time
@@ -96,15 +96,14 @@ public class InputManager : MonoBehaviour
         while(true){ 
             totalTime =  Time.time - startTime;
             screenPos = GetScreenPosition();
-            //speed = screenPos.y - startPosition.y / totalTime - startTime; 
-            yMovement = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
-            yMovement *= (maximumTime - (totalTime)); // the time of the swipe influences the slider speed
-            Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ yMovement);
+            speed = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
+            speed *= (maximumTime - (totalTime)) / _timeMultiplyer; // the slider speed increase is proportional to the swipe time
+            Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
             if( playerSlider.value >= 1f || totalTime >= maximumTime ){
                 SwipeEnd(screenPos, Time.time, playerSlider.value); // When called swipe end also stops this coroutine
             }
             else{   
-                playerSlider.value += yMovement;//playerSlider.value += .0000050f * (unnormalized) swipeLocalSpeed;
+                playerSlider.value += speed;
             }
             yield return null;
         }
@@ -131,9 +130,9 @@ public class InputManager : MonoBehaviour
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
             //SwipeDirection(direction2D);
             
-            float swipeIntensity = player.GetComponent<Player>().force * forceFactor * 10;  //Utils.NormalizedDifference(endPosition.y, startPosition.y);
-            Debug.LogWarning("Swipe intensity: " + swipeIntensity);
-            player.GetComponent<Opponent>().ThrowPint(direction2D, swipeIntensity);
+            //float swipeIntensity = //Utils.NormalizedDifference(endPosition.y, startPosition.y);
+            Debug.LogWarning("Swipe intensity: " + forceFactor);
+            player.GetComponent<Opponent>().ThrowPint(forceFactor);
         }
     }
 

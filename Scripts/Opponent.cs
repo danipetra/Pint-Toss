@@ -8,11 +8,13 @@ public class Opponent : MonoBehaviour
     // TODO make private
     public TMP_Text scoreText;
     
-    [SerializeField, Range(10, 50)]public int force = 10; //TODO change it to protected
+    [SerializeField, Range(10, 25)]public int force; //TODO change it to protected
+    [SerializeField, Range(2, 5)]private int yForceDividend;
     [SerializeField]private int score;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
+    private int yForce;
     private GameObject pint;
 
     protected void Start()
@@ -22,6 +24,7 @@ public class Opponent : MonoBehaviour
         scoreMultiplier = 1;
         isOnFire = false;
         comboValue = 0;
+        yForce = force / yForceDividend;
 
         pint = Utils.GetChildWithName(gameObject, "Pint");
         if(!pint) Debug.LogError("Pint not found");
@@ -43,7 +46,7 @@ public class Opponent : MonoBehaviour
         scoreMultiplier = 1;
     }
 
-    public void ThrowPint(Vector2 direction, float force){
+    public void ThrowPint(float forceFactor){
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
             pint.GetComponent<Rigidbody>().isKinematic = false;
@@ -52,8 +55,8 @@ public class Opponent : MonoBehaviour
             
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
-                0, //should be: direction.x * force
-                force
+                yForce * forceFactor * 100,
+                force * forceFactor * 100 
             );
         }
     }
