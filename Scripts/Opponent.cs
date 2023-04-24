@@ -49,18 +49,32 @@ public class Opponent : MonoBehaviour
 
     public void ThrowPint(float forceFactor){
         if(pint.GetComponent<Pint>().canBeThrown){
+            //move this code in a function
             transform.DetachChildren();
             pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Pint>().canBeThrown = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
+            Vector3 force = CalculateForce(forceFactor);
+
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
-                yForce * forceFactor * 100,
-                force * forceFactor * 100 
+                force.y,
+                force.z 
             );
         }
     }
+
+    public Vector3 CalculateForce(float forceFactor){
+        Vector3 force = new Vector3(
+            0,
+            yForce * forceFactor * 100,
+            this.force * forceFactor * 100 
+        );
+        return force;
+    }
+
+    
 
     public void ResetThrow(){
         //force = 0;

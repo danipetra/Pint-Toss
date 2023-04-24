@@ -55,8 +55,12 @@ public class Pint : MonoBehaviour
     }
 
     
-    public Rigidbody getRigidBody(){
+    public Rigidbody GetRigidBody(){
         return rigidBody;
     } 
+
+    public GameObject GetThrower(){
+        return thrower;
+    }
 
 }

@@ -1,6 +1,5 @@
 TODO:
 Programming:
-Automatic player and enemy rotation after the ball touches the ground/basket
 OnFire system
 Respawn player and enemy after each throw, base it on a grid. You have to keep opponents at a minimum distance (xSpace occupied*3)
 
@@ -10,18 +9,19 @@ Tiro perfetto (da regolare sulla base dello slider)
 
 Scene Management and graphics:
 Inform yourself about parabolic raycasting, to predict the right force before throwing
-Creare un ambiente usando gli asset della taverna
 Reskin pint
 
 TOIMPORT:
 -PauseMenu
 -MainMenu
--SaveSystem
+-SaveSystem, coins based on score
 -GameOverScene
 
 
 IN PROGRESS:
 Enemy IA, chooses a random value between 0 and 1, as the player, but without the slider. The more is near 1 the more time it takes(chose a cubic distribution)
+Automatic player and enemy rotation after the ball touches the ground/basket
+Create an enviroment using tavern assets
 
 KNOWN ISSUES:
 _For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
