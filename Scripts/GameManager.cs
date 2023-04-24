@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,8 +24,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        //SpawnOpponent(player);
-        //SpawnOpponent(enemy);
+        SpawnOpponent(player);
+        SpawnOpponent(enemy);
     }
 
     void Update()
@@ -78,7 +76,7 @@ public class GameManager : MonoBehaviour
             //Base it on a grid or on a rotation around the bucket
 
 
-        // Utils.LookAtLockedY(opponent.transform, bucket.transform);
+        Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }
     
 }

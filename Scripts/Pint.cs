@@ -20,13 +20,20 @@ public class Pint : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
+        
+        FindObjectOfType<AudioManager>().Play("Floor Touch");
+        
         if(other.gameObject.tag =="Floor"){
-            FindObjectOfType<AudioManager>().Play("Floor Touch");
             thrower.GetComponent<Opponent>().SetComboValue(0);
-            
+            if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
+                thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             // Respawn me and my thrower
             Reset();
             gameManager.SpawnOpponent(thrower);
+        }
+
+        if(other.gameObject.tag == "Backboard"){
+            thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
         }    
     }
 
@@ -36,7 +43,7 @@ public class Pint : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Score");
             gameManager.AddScore(thrower, thrower.GetComponent<Opponent>().scoreText);
             thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
-
+            
             // Respawn me and my thrower
             Reset();
             gameManager.SpawnOpponent(thrower);
@@ -51,7 +58,6 @@ public class Pint : MonoBehaviour
         /* Removing previous forces applied while throwing*/
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
-        transform.parent = thrower.transform;
     }
 
     

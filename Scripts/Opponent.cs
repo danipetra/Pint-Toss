@@ -7,20 +7,19 @@ public class Opponent : MonoBehaviour
     [Range(3f,5f)] public float fireDuration;
     // TODO make private
     public TMP_Text scoreText;
-    
-    [SerializeField, Range(10, 25)]public int force; //TODO change it to protected
+    //[SerializeField] TrajectorySimulator trajectorySimulator;
+    [SerializeField, Range(10, 25)]public float force; //TODO change it to protected
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
-    [SerializeField, Range(2, 5)]private int yForceDividend;
+    [SerializeField, Range(2, 5)]private float yForceDividend;
     [SerializeField]private int score;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
-    private int yForce;
-    private GameObject pint;
+    private float yForce;
+    protected GameObject pint;
 
     protected void Start()
     {   
-        //InitVariables()
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
         isOnFire = false;
@@ -34,7 +33,7 @@ public class Opponent : MonoBehaviour
     protected void Update()
     {
         if(IsOnFire()){
-            scoreMultiplier = 2;
+            scoreMultiplier *= 2;
             Invoke("FireCooldown", fireDuration);
             //TODO Add a shader to the ball
             //TODO Play a sound
@@ -44,19 +43,17 @@ public class Opponent : MonoBehaviour
     private void FireCooldown()
     {
         isOnFire = false;
-        scoreMultiplier = 1;
+        scoreMultiplier /= 2;
     }
 
     public void ThrowPint(float forceFactor){
         if(pint.GetComponent<Pint>().canBeThrown){
-            //move this code in a function
-            transform.DetachChildren();
             pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Pint>().canBeThrown = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
             Vector3 force = CalculateForce(forceFactor);
-
+            //trajectorySimulator.SimulateTrajectory(pint, transform.position, forceFactor); // TODO Move it to do in realtime instead of only at the end
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
                 force.y,
@@ -116,4 +113,7 @@ public class Opponent : MonoBehaviour
         return scoreMultiplier;
     }
     
+    public void SetScoreMultiplier(int value){
+        scoreMultiplier = value;
+    }
 }
