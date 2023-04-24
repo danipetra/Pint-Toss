@@ -22,7 +22,7 @@ _Enemy, throwing him instead of only the ball gameObject
 Create an enviroment using tavern assets
 
 KNOWN ISSUES:
-_Enemy AI, checking the pint value canBeTrown causes a bug in the throwing force
+_Enemy AI, checking the pint value canBeTrown or using force protected variable causes a bug in the throwing force
 _Throwing: For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
 _Slider: can go down if the player swipes down
 _lineRenderer: not working
