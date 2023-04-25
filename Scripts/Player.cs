@@ -21,8 +21,8 @@ public class Player : Opponent{
     /* TODO: try to move it to InputManager */
     
 
-    new public void ResetThrow(){
-        base.ResetThrow();
+    new public void Respawn(){
+        base.Respawn();
         forceSliderObj.GetComponent<Slider>().value = 0;
     }
 

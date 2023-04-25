@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     [Range(1,3)]public int scorePoints = 2;
     public TMP_Text timeText;
 
+    /* Variables used to spawn player and enemy and change their position after each throw*/
+    [SerializeField, Range(5f, 12f)]private float opponentDistanceFromObjective = 5f;
+    private float minAngle = 10, maxAngle = 170;
+    [SerializeField, Range (10f,25f)]private float minDistanceBetweenOpponents = 10f;
+    private float playerAngle, opponentAngle;
+
     private GameObject player;
     private GameObject enemy;
     private GameObject bucket;
@@ -24,8 +30,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        SpawnOpponent(player);
-        SpawnOpponent(enemy);
+        RespawnOpponent(player);
+        RespawnOpponent(enemy);
     }
 
     void Update()
@@ -70,12 +76,15 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("MISSING Add money to player function!");
     } 
 
-    public void SpawnOpponent(GameObject opponent){
-        if(opponent.name == "Player") opponent.GetComponent<Player>().ResetThrow(); else opponent.GetComponent<Opponent>().ResetThrow();
+    public void RespawnOpponent(GameObject opponent){
+        if(opponent.name == "Player") opponent.GetComponent<Player>().Respawn(); else opponent.GetComponent<Opponent>().Respawn();
         //Assign the player a position
-            //Base it on a grid or on a rotation around the bucket
+            //Base it on a rotation around the bucket
+        Quaternion rotation = Quaternion.Euler(0, Random.Range(minAngle , maxAngle), 0);
 
-
+        //Vector3 respawnPosition = bucket.transform + Random.insideUnitCircle * radius * 0.5f;
+        // fix the y respawnPosition
+        
         Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }
     

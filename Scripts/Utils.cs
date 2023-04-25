@@ -26,6 +26,12 @@ public class Utils : MonoBehaviour
         sourceT.LookAt(lookPosition);
     }
 
+    private Vector3 RandomPointOnCircleEdge(float radius, int fixedAxisIndex)
+    {
+        var point = Random.insideUnitCircle.normalized * radius;
+        return new Vector3(point.x, 0, point.y);
+    }
+
     /* Function that picks a random value using a Gaussian normal distribution */
     public static float RandomGaussian(float minValue, float maxValue)
     {

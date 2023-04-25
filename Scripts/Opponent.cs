@@ -12,14 +12,18 @@ public class Opponent : MonoBehaviour
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float yForceDividend;
     [SerializeField]private int score;
+    private Vector3 startPosition;
+    //private Quaternion startRotation;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
     private float yForce;
+    
     protected GameObject pint;
 
     protected void Start()
     {   
+        startPosition = transform.position;
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
         isOnFire = false;
@@ -47,9 +51,11 @@ public class Opponent : MonoBehaviour
     }
 
     public void ThrowPint(float forceFactor){
+        Debug.Log("Enemy throwing! :" + forceFactor);
         if(pint.GetComponent<Pint>().canBeThrown){
-            pint.GetComponent<Rigidbody>().isKinematic = false;
+            transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;
+            pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
             Vector3 force = CalculateForce(forceFactor);
@@ -73,7 +79,8 @@ public class Opponent : MonoBehaviour
 
     
 
-    public void ResetThrow(){
+    public void Respawn(){
+        pint.transform.parent = transform;
         //force = 0;
     }
 

@@ -29,7 +29,7 @@ public class Pint : MonoBehaviour
                 thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             // Respawn me and my thrower
             Reset();
-            gameManager.SpawnOpponent(thrower);
+            gameManager.RespawnOpponent(thrower);
         }
 
         if(other.gameObject.tag == "Backboard"){
@@ -46,7 +46,7 @@ public class Pint : MonoBehaviour
             
             // Respawn me and my thrower
             Reset();
-            gameManager.SpawnOpponent(thrower);
+            gameManager.RespawnOpponent(thrower);
         }    
     }
 
@@ -54,10 +54,10 @@ public class Pint : MonoBehaviour
         transform.position = startPosition/*new Vector3(0,0,0)*/;
         transform.rotation = startRotation/*new Quaternion(0,0,0,0)*/;
         rigidBody.useGravity = false;
-        canBeThrown = true;
         /* Removing previous forces applied while throwing*/
         rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero; 
+        canBeThrown = true;
     }
 
     

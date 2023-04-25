@@ -1,9 +1,8 @@
 TODO:
 Programming:
-Respawn player and enemy after each throw, base it on a grid. You have to keep opponents at a minimum distance (xSpace occupied*3)
-
+Respawn player and enemy after each throw, assigning a new position based on a rotation around the bucket. You have to keep opponents at a minimum distance (xSpace occupied*3)
 add pc input actions and controls
-Tiro perfetto (da regolare sulla base dello slider)
+Perfect throw, +1 score (da regolare sulla base dello slider)
 
 Scene Management and graphics:
 Reskin pint
@@ -18,16 +17,19 @@ TOIMPORT:
 IN PROGRESS:
 Automatic player and enemy rotation after the ball touches the ground/basket
 _inputManager: tweak it and Player Values to give smoother controls
-_Enemy, throwing him instead of only the ball gameObject
 Create an enviroment using tavern assets
 
 KNOWN ISSUES:
-_Enemy AI, checking the pint value canBeTrown or using force protected variable causes a bug in the throwing force
-_Throwing: For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
-_Slider: can go down if the player swipes down
-_lineRenderer: not working
+_Player Throwing: For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
+_Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys
+_lineRenderer and projections: not working
+_Camera not working on 3d, when the player rotates it keeps the same rotation
 
 COMPLETE:
+25 / 04
+_Enemy, throwing him instead of only the ball gameObject
+_Enemy AI, repeating the throw coroutine at each Update and not applying any delay while deciding the throw force, resulting in too many throws
+_Enemy AI, checking the pint value canBeTrown or using force protected variable causes a bug in the throwing force
 24 / 04
 OnFire system
 Enemy IA, chooses a random value between 0 and 1, as the player, but without the slider. The more is near 1 the more time it takes(chose a cubic distribution)
