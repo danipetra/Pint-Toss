@@ -22,8 +22,11 @@ public class Utils : MonoBehaviour
     }
 
     public static void LookAtLockedY(Transform sourceT, Transform targetT){
-        Vector3 lookPosition = new Vector3 (targetT.position.x, sourceT.position.y ,targetT.position.z);
-        sourceT.LookAt(lookPosition);
+        Vector3 direction = -(sourceT.position - targetT.position);
+        // Set the y-rotation of the source object to the angle between the direction vector and the target object's forward vector
+        sourceT.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        // Set the z-rotation of the source object to zero to keep it level
+        sourceT.rotation = Quaternion.Euler(sourceT.rotation.eulerAngles.x, sourceT.rotation.eulerAngles.y, 0);
     }
 
     private Vector3 RandomPointOnCircleEdge(float radius, int fixedAxisIndex)

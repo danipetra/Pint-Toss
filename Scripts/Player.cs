@@ -5,9 +5,9 @@ public class Player : Opponent{
 
     private GameObject forceSliderObj;
     
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
 
         forceSliderObj = GameObject.Find("Force Slider");
         if(!forceSliderObj) Debug.LogError("Force Slider GameObject not found");

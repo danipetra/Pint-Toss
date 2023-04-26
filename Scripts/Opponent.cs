@@ -19,7 +19,7 @@ public class Opponent : MonoBehaviour
     
     protected GameObject pint;
 
-    protected void Start()
+    protected void Awake()
     {
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
@@ -75,7 +75,7 @@ public class Opponent : MonoBehaviour
     }
 
     public void PickPint(){
-        pint.transform.parent = transform;
+        pint.transform.parent = this.transform;
         
         pint.transform.position  = transform.position;
         pint.transform.rotation = transform.rotation;

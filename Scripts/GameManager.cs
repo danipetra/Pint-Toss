@@ -87,21 +87,19 @@ public class GameManager : MonoBehaviour
         else 
             opponent.GetComponent<Enemy>().PickPint();
         
-        // Vector3 direction = -(opponent.transform.position - bucket.transform.position);
-        // Set the y-rotation of the player object to the angle between the direction vector and the player object's forward vector
-        //opponent.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Set the z-rotation of the player object to zero to keep it level
-        //opponent.transform.rotation = Quaternion.Euler(opponent.transform.rotation.eulerAngles.x, opponent.transform.rotation.eulerAngles.y, 0);
-   
-        //Assign the player a position
+        //Assign the player a position around the objective
+        Vector3 newPosition;
             //Base it on a rotation around the bucket
         //Quaternion rotation = Quaternion.Euler(0, Random.Range(minAngle , maxAngle), 0);
 
         //Vector3 respawnPosition = bucket.transform + Random.insideUnitCircle * radius * 0.5f;
         // fix the y respawnPosition
         
-        
+    
+        // TODO 
+        //use the raycast to determine the correct direction to score a backboard strike
+                                                //Pass that direction instead of the objective fixed direction
+        Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }
     
 }

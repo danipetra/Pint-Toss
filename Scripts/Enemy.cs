@@ -5,9 +5,9 @@ public class Enemy : Opponent
 {
     private bool canThrow;
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
         canThrow = true;
     }
 
