@@ -12,8 +12,6 @@ public class Opponent : MonoBehaviour
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float yForceDividend;
     [SerializeField]private int score;
-    private Vector3 startPosition;
-    //private Quaternion startRotation;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
@@ -22,8 +20,7 @@ public class Opponent : MonoBehaviour
     protected GameObject pint;
 
     protected void Start()
-    {   
-        startPosition = transform.position;
+    {
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
         isOnFire = false;
@@ -77,11 +74,13 @@ public class Opponent : MonoBehaviour
         return force;
     }
 
-    
-
-    public void Respawn(){
+    public void PickPint(){
         pint.transform.parent = transform;
-        //force = 0;
+        
+        pint.transform.position  = transform.position;
+        pint.transform.rotation = transform.rotation;
+        pint.GetComponent<Pint>().ResetRigitBody();        
+        pint.GetComponent<Pint>().canBeThrown = true;
     }
 
     public void Loose(){

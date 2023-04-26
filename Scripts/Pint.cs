@@ -28,7 +28,6 @@ public class Pint : MonoBehaviour
             if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                 thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             // Respawn me and my thrower
-            Reset();
             gameManager.RespawnOpponent(thrower);
         }
 
@@ -45,26 +44,16 @@ public class Pint : MonoBehaviour
             thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
             
             // Respawn me and my thrower
-            Reset();
             gameManager.RespawnOpponent(thrower);
         }    
     }
 
-    public void Reset(){
-        transform.position = startPosition/*new Vector3(0,0,0)*/;
-        transform.rotation = startRotation/*new Quaternion(0,0,0,0)*/;
+    public void ResetRigitBody(){
         rigidBody.useGravity = false;
-        /* Removing previous forces applied while throwing*/
         rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero; 
-        canBeThrown = true;
+        rigidBody.angularVelocity = Vector3.zero;
     }
-
     
-    public Rigidbody GetRigidBody(){
-        return rigidBody;
-    } 
-
     public GameObject GetThrower(){
         return thrower;
     }

@@ -18,16 +18,9 @@ public class Player : Opponent{
         base.Update();
     }
 
-    /* TODO: try to move it to InputManager */
-    
-
-    new public void Respawn(){
-        base.Respawn();
+    public new void PickPint(){
+        base.PickPint();
         forceSliderObj.GetComponent<Slider>().value = 0;
-    }
-
-    public GameObject GetSlider(){
-        return forceSliderObj;
     }
 
 }

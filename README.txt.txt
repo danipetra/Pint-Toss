@@ -15,18 +15,19 @@ TOIMPORT:
 
 
 IN PROGRESS:
-Automatic player and enemy rotation after the ball touches the ground/basket
-_inputManager: tweak it and Player Values to give smoother controls
+Automatic opponent rotation and lookAt after the ball touches the ground/basket
 Create an enviroment using tavern assets
 
 KNOWN ISSUES:
-_Player Throwing: For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
 _Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys
 _lineRenderer and projections: not working
 _Camera not working on 3d, when the player rotates it keeps the same rotation
 
 COMPLETE:
+26 / 04
+_Player Throwing: For the first throw the inputManager takes the wrong start position (left-base angle of the screen)
 25 / 04
+_inputManager: tweak it and Player Values to give smoother controls
 _Enemy, throwing him instead of only the ball gameObject
 _Enemy AI, repeating the throw coroutine at each Update and not applying any delay while deciding the throw force, resulting in too many throws
 _Enemy AI, checking the pint value canBeTrown or using force protected variable causes a bug in the throwing force

@@ -20,10 +20,10 @@ public class InputManager : MonoBehaviour
     #endregion
 
     /* Swipe variables: put into a class */
-    [SerializeField, Range(0f, 30f)] private float minimumDistance = 15f;
     [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
-    [SerializeField, Range(0f, 25f)] private float _timeMultiplyer = 10f; // Needed to avoid to update the slider to fast
-
+    [SerializeField, Range(15f, 50f)] private float _swipeSpeed = 25f; // Needed to avoid to update the slider to0 fast
+    [SerializeField, Range(0f, 15f)] private float minimumSwipeDistance = 1f;
+    
     private Vector2 startPosition, endPosition;
     private float startTime, endTime;
 
@@ -96,7 +96,7 @@ public class InputManager : MonoBehaviour
             totalTime =  Time.time - startTime;
             screenPos = GetScreenPosition();
             speed = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
-            speed *= (player.GetComponent<Opponent>().maximumTime - (totalTime)) / _timeMultiplyer; // the slider speed increase is proportional to the swipe time
+            speed *= (player.GetComponent<Opponent>().maximumTime - (totalTime)) / _swipeSpeed; // the slider speed increase is proportional to the swipe time
             Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
             if( playerSlider.value >= 1f || totalTime >= player.GetComponent<Opponent>().maximumTime ){
                 SwipeEnd(screenPos, Time.time, playerSlider.value); // When called swipe end also stops this coroutine
@@ -121,7 +121,7 @@ public class InputManager : MonoBehaviour
     /* Called at the end of the Swipe */
     private void DetectSwipeForce(float forceFactor)
     {
-        if(Vector3.Distance(startPosition, endPosition) >= minimumDistance) 
+        if(Vector3.Distance(startPosition, endPosition) >= minimumSwipeDistance) 
             //&& (endTime - startTime) < maximumTime)
         {
             

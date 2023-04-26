@@ -15,8 +15,8 @@ public class Enemy : Opponent
     new void Update()
     {
         base.Update();
-        if(canThrow && pint.GetComponent<Pint>().canBeThrown)
-            StartCoroutine(PerformThrow());
+        //if(canThrow && pint.GetComponent<Pint>().canBeThrown)
+          //  StartCoroutine(PerformThrow());
     }
 
     private IEnumerator PerformThrow(){
