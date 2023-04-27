@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : Singleton<CameraFollow>
 {
     private GameObject camTarget;
     private Vector3 offset;
@@ -18,5 +18,9 @@ public class CameraFollow : MonoBehaviour
     private void Update()
     {
         transform.position =new Vector3(camTarget.transform.position.x + offset.x, camTarget.transform.position.y + offset.y, camTarget.transform.position.z -10f) ;
+    }
+
+    private void Transition(Vector3 destination, float time){
+
     }
 }

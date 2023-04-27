@@ -11,7 +11,7 @@ public class Opponent : MonoBehaviour
     [SerializeField, Range(10, 25)]public float force; //TODO change it to protected
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float yForceDividend;
-    [SerializeField]private int score;
+    private int score;
     private bool isOnFire;
     private int comboValue;
     private int scoreMultiplier;
@@ -21,6 +21,7 @@ public class Opponent : MonoBehaviour
 
     protected void Awake()
     {
+        score = 0;
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
         isOnFire = false;
@@ -48,7 +49,7 @@ public class Opponent : MonoBehaviour
     }
 
     public void ThrowPint(float forceFactor){
-        Debug.Log("Enemy throwing! :" + forceFactor);
+        Debug.Log("Opponent "+ gameObject.tag +"throwing with force :" + forceFactor);
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;
@@ -76,7 +77,8 @@ public class Opponent : MonoBehaviour
 
     public void PickPint(){
         pint.transform.parent = this.transform;
-        
+        FindObjectOfType<AudioManager>().Play("Drink");
+
         pint.transform.position  = transform.position;
         pint.transform.rotation = transform.rotation;
         pint.GetComponent<Pint>().ResetRigitBody();        

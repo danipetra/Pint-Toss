@@ -2,6 +2,7 @@ using UnityEngine;
 public class Pint : MonoBehaviour
 {
     public bool canBeThrown = true;
+    private bool backboardThrow = false;
 
 
     private Vector3 startPosition;
@@ -9,6 +10,7 @@ public class Pint : MonoBehaviour
     private GameObject thrower;
     private Rigidbody rigidBody;
     private GameManager gameManager;
+    private AudioManager audioManager;
 
     private void Awake()
     {
@@ -17,11 +19,12 @@ public class Pint : MonoBehaviour
         thrower = transform.parent.gameObject;
         rigidBody = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void OnCollisionEnter(Collision other) {
         
-        FindObjectOfType<AudioManager>().Play("Floor Touch");
+        audioManager.Play("Bounce");
         
         if(other.gameObject.tag =="Floor"){
             thrower.GetComponent<Opponent>().SetComboValue(0);
@@ -29,17 +32,23 @@ public class Pint : MonoBehaviour
                 thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             // Respawn me and my thrower
             gameManager.RespawnOpponent(thrower);
+            if(backboardThrow){
+                audioManager.Play("Boo");
+                backboardThrow = false;
+            }
         }
 
         if(other.gameObject.tag == "Backboard"){
             thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
+            audioManager.Play("Backboard");
+            backboardThrow = true;
         }    
     }
 
      private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag =="ScoreArea"){;
-            FindObjectOfType<AudioManager>().Play("Floor Touch");     
-            FindObjectOfType<AudioManager>().Play("Score");
+            audioManager.Play("Bounce");     
+            audioManager.Play("Score");
             gameManager.AddScore(thrower, thrower.GetComponent<Opponent>().scoreText);
             thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
             

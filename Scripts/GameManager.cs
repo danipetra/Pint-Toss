@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+        Physics.IgnoreCollision(player.GetComponentInChildren<SphereCollider>(), enemy.GetComponentInChildren<SphereCollider>());
+
         bucket = GameObject.FindGameObjectWithTag("Objective");
         if(!player || !enemy || !bucket)
             Debug.LogError("Not found base gameObject" + player.name + " " +enemy.name +" "+bucket.name);
         
-        sceneLoader = GetComponent<SceneLoader>();
+        sceneLoader = FindObjectOfType<SceneLoader>();
         timeLeft = (float)gameTime;
     }
 
@@ -40,22 +42,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timeLeft -= Time.deltaTime;
-        if(GameTimeEnded())
+        if(timeLeft <= 0){
             StopGame();
-
+        }
         timeText.text = timeLeft.ToString().Substring(0,4);
     }
 
-    bool GameTimeEnded(){
-        if(gameTime <= 0){
-            return true;
-        }
-        return false;  
-    }
-
     void StopGame(){
-        //Debug.Log("Game Over!");
         ChooseWinner();
+        sceneLoader.LoadScene("Reward");
     }
 
     public void AddScore(GameObject opponent, TMP_Text opponentText){  
@@ -65,13 +60,9 @@ public class GameManager : MonoBehaviour
 
     private void ChooseWinner(){
         if(player.GetComponent<Opponent>().GetScore() >= enemy.GetComponent<Opponent>().GetScore()){
-            Debug.LogWarning("MISSING Implement Win Scene!");
             AddMoneyToPlayer();
-            //sceneLoader.LoadScene("WinScene");
         }
         else{
-            Debug.LogWarning("MISSING Implement Lose Scene!");
-            //sceneLoader.LoadScene("LoseScene");
         }
     }
     
@@ -86,8 +77,9 @@ public class GameManager : MonoBehaviour
             opponent.GetComponent<Enemy>().PickPint();
         
         //PositionOpponent(opponent);
+        
         // TODO 
-        //use the raycast to determine the correct direction to score a backboard strike
+        //use the raycast to determine the correct direction to score a backboard strike, it varies depending on the position
                                                 //Pass that direction instead of the objective fixed direction
         Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }

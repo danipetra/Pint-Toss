@@ -17,8 +17,7 @@ TOIMPORT:
 
 
 IN PROGRESS:
--PauseMenu
--MainMenu
+Create Main menu and GameOver
 
 KNOWN ISSUES:
 _Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys

@@ -5,7 +5,7 @@ using System.IO;
 
 public class JsonManager : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         PlayerData playerData = new PlayerData();
         initializeJson(playerData);
@@ -15,15 +15,12 @@ public class JsonManager : MonoBehaviour
     private void initializeJson(PlayerData playerData)
     {
         if (!File.Exists(Application.persistentDataPath + "/playerData.json"))
-        {
             saveToJson(playerData, Application.persistentDataPath + "/playerData.json");
-        }
     }
 
     private void saveInventory(int coinsNumber)
     {
         PlayerData playerData = loadJson(Application.persistentDataPath + "/playerData.json");
-        //TODO LoadInventoryChanges 
         saveToJson(playerData, Application.persistentDataPath + "/playerData.json");
     }
 

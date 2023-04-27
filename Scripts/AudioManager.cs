@@ -41,12 +41,10 @@ public class AudioManager : Singleton<AudioManager>
 
     public void Update()
     {
-        if(SceneManager.GetActiveScene().name == "Game")
+        if(SceneManager.GetActiveScene().name == "GameOver")
         {
             Pause("Main Theme");
-        }
-
-        if (SceneManager.GetActiveScene().name != "Game")
+        }else //if(SceneManager.GetActiveScene().name != "GameOver")
         {
             UnPause("Main Theme");
         }
