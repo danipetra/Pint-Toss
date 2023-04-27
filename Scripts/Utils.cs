@@ -57,4 +57,8 @@ public class Utils : MonoBehaviour
         return Mathf.Clamp(std * sigma + mean, minValue, maxValue);
     }
 
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
+         return angle * ( point - pivot) + pivot;
+     }
+
 }

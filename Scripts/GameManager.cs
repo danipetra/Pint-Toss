@@ -9,12 +9,10 @@ public class GameManager : MonoBehaviour
     public TMP_Text timeText;
 
     /* Variables used to spawn player and enemy and change their position after each throw*/
-    [SerializeField, Range(5f, 12f)]private float opponentDistanceFromObjective = 5f;
-    private float minAngle = 10, maxAngle = 170;
+    private float opponentDistanceFromObjective = 12;
+    private float minAngle = 60, maxAngle = 120;
     [SerializeField, Range (10f,25f)]private float minDistanceBetweenOpponents = 10f;
     private float playerAngle, opponentAngle;
-    private Vector3 playerPrevPosition, enemyPrevPosition;
-    private Quaternion playerPrevRotation, enemyPrevRotation;
 
     private GameObject player;
     private GameObject enemy;
@@ -87,19 +85,21 @@ public class GameManager : MonoBehaviour
         else 
             opponent.GetComponent<Enemy>().PickPint();
         
-        //Assign the player a position around the objective
-        Vector3 newPosition;
-            //Base it on a rotation around the bucket
-        //Quaternion rotation = Quaternion.Euler(0, Random.Range(minAngle , maxAngle), 0);
-
-        //Vector3 respawnPosition = bucket.transform + Random.insideUnitCircle * radius * 0.5f;
-        // fix the y respawnPosition
-        
-    
+        //PositionOpponent(opponent);
         // TODO 
         //use the raycast to determine the correct direction to score a backboard strike
                                                 //Pass that direction instead of the objective fixed direction
         Utils.LookAtLockedY(opponent.transform, bucket.transform);
+    }
+
+    /* Calculate the new position of the opponent */
+    public void PositionOpponent(GameObject opponent){
+        float angle = Random.Range(180, 360); 
+                                                            
+        Vector3 newPosition = bucket.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * opponentDistanceFromObjective;
+        newPosition.y  = 5f;
+        Debug.Log("Position :" + newPosition + "Angle  :" + angle);       
+        opponent.transform.position = newPosition;
     }
     
 }
