@@ -20,19 +20,6 @@ public class JsonManager : MonoBehaviour
             SaveToJson(playerData, saveDataPath);
     }
 
-    public void AddCoins(int gameCoins)
-    {
-        PlayerData playerData = LoadJson(saveDataPath);
-        Debug.Log(playerData.totalCoins + " " + "BEFORE");
-        playerData.totalCoins += gameCoins;
-        playerData.sessionCoins = gameCoins;
-
-        SaveToJson(playerData, saveDataPath);
-        
-        Debug.Log(playerData.totalCoins + " " + "AFTER");
-    }
-
-    
     public void SaveToJson(PlayerData playerData, string jsonPath)
     {
         string json = JsonUtility.ToJson(playerData);

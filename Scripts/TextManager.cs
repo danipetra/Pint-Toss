@@ -5,6 +5,8 @@ public class TextManager : MonoBehaviour
 {
     public TMP_Text coinsText;
     public TMP_Text totalCoinsText;
+    public TMP_Text hiscoreText;
+    public TMP_Text winnerText;
     //public Button rewardedAdButton;
 
     private JsonManager jsonManager;
@@ -21,12 +23,15 @@ public class TextManager : MonoBehaviour
     {
         //depending on scene update text fields
         if (coinsText)
-        {
             UpdateSessionCoins();
-        }
+        
         if (totalCoinsText)
         {
             UpdateTotalCoins();
+        }
+        if (hiscoreText)
+        {
+            UpdateHiscore();
         }
     }
 
@@ -40,27 +45,17 @@ public class TextManager : MonoBehaviour
         totalCoinsText.text = playerData.totalCoins.ToString();
     }
 
-    /*public void giveExtraCoins()
+    private void UpdateHiscore()
     {
-        adsManager.PlayRewardedAd(onRewardedAdSuccess);
-
-        PlayerData playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");
-        UpdateTotalCoins();
-
-        rewardedAdButton.interactable = false;
+        hiscoreText.text = playerData.highestScore.ToString();
     }
 
-    public void onRewardedAdSuccess()
+    private void UpdateWinnerText()
     {
-        PlayerData playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");
+        if(playerData.playerHasWon)
+            winnerText.text = "You won!";
+        else winnerText.text = "You loose!";
+    }
 
-        playerData.coins += playerData.sessionCoins;
-
-        totalCoinAmount = playerData.coins;
-
-        playerData.sessionCoins = 0;
-
-        jsonManager.SaveToJson(playerData,Application.persistentDataPath + "/playerData.json");
-    }*/
 }
 

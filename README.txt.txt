@@ -14,7 +14,7 @@ TOIMPORT:
 IN PROGRESS:
 _Build and test on mobile devices
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
-Save system, each round the player gets the score converted by coins and a bonus if he wins.
+_Player Throwing:
 Reskin pint
 
 
@@ -22,10 +22,12 @@ KNOWN ISSUES:
 _Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys
 _lineRenderer and projections: not working
 _Camera not working on 3d, when the player rotates it keeps the same rotation
-
 COMPLETE:
 28 / 04
 Backboard bouns, hitting it doubles the score. Fixed bugs.
+Save system, each round the player gets the score converted by coins and a bonus if he wins.
+Text update based on Json 
+_Slider: make it not interactable
 
 27 / 04
 Create an enviroment using tavern assets
