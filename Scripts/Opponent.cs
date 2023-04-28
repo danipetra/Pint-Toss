@@ -48,7 +48,8 @@ public class Opponent : MonoBehaviour
         scoreMultiplier /= 2;
     }
 
-    public void ThrowPint(float forceFactor){
+    public void ThrowPint(float forceFactor)
+    {
         Debug.Log(gameObject.tag +" throw with force :" + forceFactor);
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
@@ -56,8 +57,9 @@ public class Opponent : MonoBehaviour
             pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
+            // Calculate the corrensponding force and apply it to the pint
             Vector3 force = CalculateForce(forceFactor);
-            //trajectorySimulator.SimulateTrajectory(pint, transform.position, forceFactor); // TODO Move it to do in realtime instead of only at the end
+            //trajectorySimulator.SimulateTrajectory(pint, transform.position, forceFactor);
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
                 force.y,
@@ -75,7 +77,8 @@ public class Opponent : MonoBehaviour
         return force;
     }
 
-    public void PickPint(){
+    public void PickPint()
+    {
         pint.transform.parent = this.transform;
         FindObjectOfType<AudioManager>().Play("Drink");
 
@@ -85,15 +88,8 @@ public class Opponent : MonoBehaviour
         pint.GetComponent<Pint>().canBeThrown = true;
     }
 
-    public void Loose(){
-
-    }
-
-    public void Win(){
-
-    }
-
-    public bool IsOnFire(){
+    public bool IsOnFire()
+    {
         if(comboValue <= 3)
             return false;
 
@@ -101,27 +97,15 @@ public class Opponent : MonoBehaviour
         return true;
     }
 
-    public void IncreaseScore(int increase){
-        score += increase;
-    }
+    public void IncreaseScore(int increase) => score += increase;
 
-    public int GetScore(){
-        return score;
-    }
+    public int GetScore() => score;
 
-    public void SetComboValue(int val){
-        comboValue = val;
-    }
+    public void SetComboValue(int val) => comboValue = val;
 
-    public int GetComboValue(){
-        return comboValue;
-    }
+    public int GetComboValue() => comboValue;
 
-     public int GetScoreMultiplier(){
-        return scoreMultiplier;
-    }
+    public int GetScoreMultiplier() => scoreMultiplier;
     
-    public void SetScoreMultiplier(int value){
-        scoreMultiplier = value;
-    }
+    public void SetScoreMultiplier(int value) => scoreMultiplier = value;
 }

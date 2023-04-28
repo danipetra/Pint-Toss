@@ -4286,7 +4286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Loose!
+  m_text: '!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 811afd65a86b6ca4f8eef98d4e540c45, type: 2}
   m_sharedMaterial: {fileID: 9028418585156766169, guid: 811afd65a86b6ca4f8eef98d4e540c45, type: 2}

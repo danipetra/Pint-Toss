@@ -26,13 +26,13 @@ public class TextManager : MonoBehaviour
             UpdateSessionCoins();
         
         if (totalCoinsText)
-        {
             UpdateTotalCoins();
-        }
+        
         if (hiscoreText)
-        {
             UpdateHiscore();
-        }
+        
+        if(winnerText)
+            UpdateWinnerText();
     }
 
     private void UpdateSessionCoins()
@@ -53,7 +53,7 @@ public class TextManager : MonoBehaviour
     private void UpdateWinnerText()
     {
         if(playerData.playerHasWon)
-            winnerText.text = "You won!";
+            winnerText.text = "You win!";
         else winnerText.text = "You loose!";
     }
 

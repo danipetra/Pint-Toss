@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }
 
-    /* Calculate the new position of the opponent */
+    /* Calculates the new position of the opponent */
     public void PositionOpponent(GameObject opponent)
     {
         float angle = Random.Range(minAngle, maxAngle); 

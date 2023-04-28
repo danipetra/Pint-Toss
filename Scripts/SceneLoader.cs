@@ -5,7 +5,6 @@ public class SceneLoader : Singleton<SceneLoader>
 {
     public void LoadScene(string name)
     {
-        Debug.Log("loadlevel request for: " + name);
         resetTimeScale();
         SceneManager.LoadScene(name);
     }
@@ -14,7 +13,6 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         string CurrentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(CurrentScene);
-        Debug.Log("Reloading scene" + CurrentScene);
     }
 
     public void QuitGame(){
