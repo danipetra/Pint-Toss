@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
 
     /* Swipe variables: put into a class */
     [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
-    [SerializeField, Range(15f, 50f)] private float _swipeSpeed = 25f; // Needed to avoid to update the slider to0 fast
+    [SerializeField, Range(15f, 50f)] private float _swipeSpeed = 25f; // Needed to avoid to update the slider too fast
     [SerializeField, Range(0f, 15f)] private float minimumSwipeDistance = 1f;
     
     private Vector2 startPosition, endPosition;
@@ -97,7 +97,7 @@ public class InputManager : MonoBehaviour
             screenPos = GetScreenPosition();
             speed = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
             speed *= (player.GetComponent<Opponent>().maximumTime - (totalTime)) / _swipeSpeed; // the slider speed increase is proportional to the swipe time
-            Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
+            //Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
             if( playerSlider.value >= 1f || totalTime >= player.GetComponent<Opponent>().maximumTime ){
                 SwipeEnd(screenPos, Time.time, playerSlider.value); // When called swipe end also stops this coroutine
             }
@@ -130,7 +130,6 @@ public class InputManager : MonoBehaviour
             //SwipeDirection(direction2D);
             
             //float swipeIntensity = //Utils.NormalizedDifference(endPosition.y, startPosition.y);
-            Debug.LogWarning("Swipe intensity: " + forceFactor);
             player.GetComponent<Opponent>().ThrowPint(forceFactor);
         }
     }

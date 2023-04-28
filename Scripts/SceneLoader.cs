@@ -10,6 +10,13 @@ public class SceneLoader : Singleton<SceneLoader>
         SceneManager.LoadScene(name);
     }
 
+    public void LoadScene(string name, bool playerHasWon)
+    {
+        Debug.Log("loadlevel request for: " + name);
+        resetTimeScale();
+        SceneManager.LoadScene(name);
+    }
+
     public void ReloadScene()
     {
         string CurrentScene = SceneManager.GetActiveScene().name;

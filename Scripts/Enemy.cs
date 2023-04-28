@@ -4,14 +4,17 @@ using System.Collections;
 public class Enemy : Opponent
 {
     private bool canThrow;
-    // Start is called before the first frame update
+    
     new void Awake()
     {
         base.Awake();
         canThrow = true;
     }
 
-    // Update is called once per frame
+    private void Start() {
+        //GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.3f);
+    }
+
     new void Update()
     {
         base.Update();

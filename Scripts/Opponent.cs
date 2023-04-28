@@ -49,7 +49,7 @@ public class Opponent : MonoBehaviour
     }
 
     public void ThrowPint(float forceFactor){
-        Debug.Log("Opponent "+ gameObject.tag +"throwing with force :" + forceFactor);
+        Debug.Log(gameObject.tag +" throw with force :" + forceFactor);
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;

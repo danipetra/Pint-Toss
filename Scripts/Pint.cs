@@ -1,9 +1,8 @@
 using UnityEngine;
 public class Pint : MonoBehaviour
 {
-    public bool canBeThrown = true;
-    private bool backboardThrow = false;
-
+    public bool canBeThrown;
+    private bool hitBackboard;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -14,6 +13,8 @@ public class Pint : MonoBehaviour
 
     private void Awake()
     {
+        canBeThrown = true;
+        hitBackboard = false;
         startPosition = transform.position;
         startRotation = transform.rotation;
         thrower = transform.parent.gameObject;
@@ -28,20 +29,25 @@ public class Pint : MonoBehaviour
         
         if(other.gameObject.tag =="Floor"){
             thrower.GetComponent<Opponent>().SetComboValue(0);
-            if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
-                thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
+            if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1){
+                    thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
+            }   
+                
             // Respawn me and my thrower
             gameManager.RespawnOpponent(thrower);
-            if(backboardThrow){
+            if(hitBackboard){
                 audioManager.Play("Boo");
-                backboardThrow = false;
+                hitBackboard = false;
+                if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1){
+                    thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
+                }
             }
         }
 
         if(other.gameObject.tag == "Backboard"){
             thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
             audioManager.Play("Backboard");
-            backboardThrow = true;
+            hitBackboard = true;
         }    
     }
 
@@ -51,7 +57,9 @@ public class Pint : MonoBehaviour
             audioManager.Play("Score");
             gameManager.AddScore(thrower, thrower.GetComponent<Opponent>().scoreText);
             thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
-            
+            if(hitBackboard && thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1){
+                    thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
+            }
             // Respawn me and my thrower
             gameManager.RespawnOpponent(thrower);
         }    

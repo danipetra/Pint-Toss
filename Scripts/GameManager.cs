@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [Range(20, 60)]public int gameTime = 60;
     [Range(1,3)]public int scorePoints = 2;
     public TMP_Text timeText;
+    private int winBonus = 30;
 
     /* Variables used to spawn player and enemy and change their position after each throw*/
     private float opponentDistanceFromObjective = 12;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
 
         bucket = GameObject.FindGameObjectWithTag("Objective");
         if(!player || !enemy || !bucket)
-            Debug.LogError("Not found base gameObject" + player.name + " " +enemy.name +" "+bucket.name);
+            Debug.LogError("Not found base gameObjects" + player.name + " " +enemy.name +" "+bucket.name);
         
         sceneLoader = FindObjectOfType<SceneLoader>();
         timeLeft = (float)gameTime;
@@ -49,8 +50,23 @@ public class GameManager : MonoBehaviour
     }
 
     void StopGame(){
-        ChooseWinner();
-        sceneLoader.LoadScene("Reward");
+        JsonManager jsonManager = new JsonManager();
+        PlayerData playerData = jsonManager.LoadJson(jsonManager.saveDataPath);
+        Debug.Log("prev coins : "+ playerData.totalCoins);
+
+        int playerScore = player.GetComponent<Opponent>().GetScore();
+        
+        bool playerHasWon = PlayerHasWon();
+        if(playerHasWon){
+            jsonManager.AddCoins(playerScore + winBonus);
+        }
+        else{
+            jsonManager.AddCoins(playerScore);
+        }
+        playerData = jsonManager.LoadJson(jsonManager.saveDataPath);
+        Debug.Log("new coins total: " + playerData.totalCoins);
+        Debug.Log("new sesssion coins: " + playerData.totalCoins +" " + playerData.sessionCoins);
+        sceneLoader.LoadScene("Reward", playerHasWon);
     }
 
     public void AddScore(GameObject opponent, TMP_Text opponentText){  
@@ -58,17 +74,12 @@ public class GameManager : MonoBehaviour
         opponentText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
     } 
 
-    private void ChooseWinner(){
-        if(player.GetComponent<Opponent>().GetScore() >= enemy.GetComponent<Opponent>().GetScore()){
-            AddMoneyToPlayer();
-        }
-        else{
-        }
+    private bool PlayerHasWon(){
+        if(player.GetComponent<Opponent>().GetScore() >= enemy.GetComponent<Opponent>().GetScore())
+            return true;
+        
+        else return false;
     }
-    
-    private void AddMoneyToPlayer(){
-        Debug.LogWarning("MISSING Add money to player function!");
-    } 
 
     public void RespawnOpponent(GameObject opponent){
         if(opponent.tag == "Player") 
@@ -86,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     /* Calculate the new position of the opponent */
     public void PositionOpponent(GameObject opponent){
-        float angle = Random.Range(180, 360); 
+        float angle = Random.Range(minAngle, maxAngle); 
                                                             
         Vector3 newPosition = bucket.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * opponentDistanceFromObjective;
         newPosition.y  = 5f;
