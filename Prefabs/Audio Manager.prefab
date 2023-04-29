@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Drink
     clip: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
-    volume: 3
+    volume: 6
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -64,8 +64,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Bounce
-    clip: {fileID: 8300000, guid: 5fa76ea6982d2ff4b90c36473ba31a44, type: 3}
-    volume: 2.4
+    clip: {fileID: 8300000, guid: e99e039c57731c64895d98ac208a2d53, type: 3}
+    volume: 1.5
     pitch: 0.7
     loop: 0
     source: {fileID: 0}

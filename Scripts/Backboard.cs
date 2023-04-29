@@ -1,3 +1,4 @@
+/*TODO: manage backboard text and bonuses only here instead of using the GameManager*/
 using UnityEngine;
 using TMPro;
 using System.Collections;

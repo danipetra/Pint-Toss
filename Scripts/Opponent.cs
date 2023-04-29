@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections;
 
 public class Opponent : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Opponent : MonoBehaviour
     private int comboValue;
     private int scoreMultiplier;
     private float yForce;
+    private Coroutine rotationCoroutine;
     
     protected GameObject pint;
 
@@ -66,11 +68,7 @@ public class Opponent : MonoBehaviour
                 force.z 
             );
 
-            // Add a rotation to the pint around itself
-            Vector3 rotationAxis = new Vector3(UnityEngine.Random.Range(0f, 1f), 0, UnityEngine.Random.Range(-1f, 1f)).normalized;
-            float rotationSpeed = UnityEngine.Random.Range(10f, 20f);
-            pint.transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
-
+            rotationCoroutine = StartCoroutine(RotatePint(Vector3.up, yForce ));
         }
     }
 
@@ -85,6 +83,7 @@ public class Opponent : MonoBehaviour
 
     public void PickPint()
     {
+        StopCoroutine(rotationCoroutine);
         pint.transform.parent = this.transform;
         FindObjectOfType<AudioManager>().Play("Drink");
 
@@ -92,6 +91,13 @@ public class Opponent : MonoBehaviour
         pint.transform.rotation = transform.rotation;
         pint.GetComponent<Pint>().ResetRigitBody();        
         pint.GetComponent<Pint>().canBeThrown = true;
+    }
+
+    public IEnumerator RotatePint(Vector3 angles, float speed)
+    {
+        var fromAngle = pint.transform.rotation;
+        pint.transform.Rotate (angles * speed * Time.deltaTime);
+        yield return null;
     }
 
     public bool IsOnFire()

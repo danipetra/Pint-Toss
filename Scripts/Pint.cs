@@ -12,6 +12,7 @@ public class Pint : MonoBehaviour
     private GameManager gameManager;
     private AudioManager audioManager;
 
+
     private void Awake()
     {
         canBeThrown = true;
@@ -71,8 +72,9 @@ public class Pint : MonoBehaviour
             audioManager.Play("Score");
 
             gameManager.UpdateScore(thrower, hasBackboardBlinkBonus);
-            thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
+            if(hasBackboardBlinkBonus) // TODO Deactivate blink on backboard
             
+            thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
             if(hitBackboard && thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             
@@ -87,7 +89,7 @@ public class Pint : MonoBehaviour
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
     }
-    
+
     public GameObject GetThrower() => thrower;
 
 }
