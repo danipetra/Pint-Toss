@@ -4,8 +4,10 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     
-    [Range(20, 60)]public int gameTime = 60;
-    [Range(1,3)]public int scorePoints = 2;
+    [SerializeField, Range(20, 60)] public int gameTime = 60;
+    [SerializeField, Range(1,3)] private int scorePoints = 2;
+    [SerializeField, Range(1,3)] private int backboardBlinkBonus = 4;
+
     public TMP_Text timeText;
     private int winBonus = 25;
 
@@ -76,10 +78,15 @@ public class GameManager : MonoBehaviour
         sceneLoader.LoadScene("Reward");
     }
 
-    public void AddScore(GameObject opponent, TMP_Text opponentText)
+    public void UpdateScore(GameObject opponent, bool isBackboardBlinking)
     {  
-        opponent.GetComponent<Opponent>().IncreaseScore(scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier());
-        opponentText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
+        int scoreIncrease;
+        if(isBackboardBlinking)
+            scoreIncrease = scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier() + backboardBlinkBonus;
+        else scoreIncrease =  scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier();
+        
+        opponent.GetComponent<Opponent>().IncreaseScore(scoreIncrease);
+        opponent.GetComponent<Opponent>().scoreText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
     } 
 
     private bool PlayerHasWon()
