@@ -65,6 +65,12 @@ public class Opponent : MonoBehaviour
                 force.y,
                 force.z 
             );
+
+            // Add a rotation to the pint around itself
+            Vector3 rotationAxis = new Vector3(UnityEngine.Random.Range(0f, 1f), 0, UnityEngine.Random.Range(-1f, 1f)).normalized;
+            float rotationSpeed = UnityEngine.Random.Range(10f, 20f);
+            pint.transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+
         }
     }
 

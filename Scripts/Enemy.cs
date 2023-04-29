@@ -4,6 +4,7 @@ using System.Collections;
 public class Enemy : Opponent
 {
     private bool canThrow;
+    private float transparency = .1f;
     
     new void Awake()
     {
@@ -12,7 +13,7 @@ public class Enemy : Opponent
     }
 
     private void Start() {
-        //GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.3f);
+        GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 1f, 1f, transparency);
     }
 
     new void Update()

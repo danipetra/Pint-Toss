@@ -148,5 +148,5 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public Vector2 GetScreenPosition() { return playerControls.InGame.PrimaryPosition.ReadValue<Vector2>(); }
+    public Vector2 GetScreenPosition() => playerControls.InGame.PrimaryPosition.ReadValue<Vector2>();
 }

@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4349549203921020}
   - component: {fileID: 33070045702817852}
   - component: {fileID: 23144164438693516}
-  - component: {fileID: 95029018122738406}
-  - component: {fileID: 65348752858751746}
   m_Layer: 0
   m_Name: Jug_01
   m_TagString: Untagged
@@ -30,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 50.510242, y: -4.939376, z: -75.733826}
   m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -83,35 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &95029018122738406
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670697701759372}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0af38530069ec2740a00fbf48041c7f3, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &65348752858751746
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670697701759372}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.14224914, y: 0.16941042, z: 0.11496209}
-  m_Center: {x: -0.013643518, y: 0.08470521, z: -0.0000000037252903}
