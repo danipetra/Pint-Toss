@@ -4,16 +4,15 @@ using System.Collections;
 public class Enemy : Opponent
 {
     private bool canThrow;
-    private float transparency = .1f;
+    private float transparency = .01f;
     
     new void Awake()
     {
         base.Awake();
         canThrow = true;
-    }
-
-    private void Start() {
-        GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 1f, 1f, transparency);
+        Color enemyColor = Color.red;
+        enemyColor.a = 0.9f;
+        Utils.GetChildWithName(gameObject, "Pint").GetComponentInChildren<MeshRenderer>().material.color = enemyColor;
     }
 
     new void Update()
@@ -23,7 +22,8 @@ public class Enemy : Opponent
             StartCoroutine(PerformThrow());
     }
 
-    private IEnumerator PerformThrow(){
+    private IEnumerator PerformThrow()
+    {
         canThrow = false;
         float force = Mathf.Abs( Utils.RandomGaussian(0, 1) );
         float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );

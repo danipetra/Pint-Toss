@@ -18,7 +18,8 @@ public class Player : Opponent{
         base.Update();
     }
 
-    public new void PickPint(){
+    public new void PickPint()
+    {
         base.PickPint();
         forceSliderObj.GetComponent<Slider>().value = 0;
     }

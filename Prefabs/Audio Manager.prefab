@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Drink
-    clip: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
+    clip: {fileID: 8300000, guid: 77c1b7992e9f0b34588ae358e40cdeaa, type: 3}
     volume: 6
     pitch: 1
     loop: 0

@@ -32,7 +32,8 @@ public class InputManager : MonoBehaviour
     private Slider playerSlider;
     private Coroutine coroutine;
 
-    private void Awake() {
+    private void Awake() 
+    {
         playerControls = new PlayerControls();
         player = GameObject.FindGameObjectWithTag( "Player" );
         if(!player) Debug.LogError("Player not found");
@@ -64,12 +65,15 @@ public class InputManager : MonoBehaviour
 
 
     /* When a contact starts or is canceled, return the position and the time it occurred (via CallbackContext variable) */ 
-    private void StartTouchPrimary(InputAction.CallbackContext ctx) { 
+    private void StartTouchPrimary(InputAction.CallbackContext ctx) 
+    { 
         if (OnStartContact != null) 
             OnStartContact(GetScreenPosition(), (float)ctx.startTime); 
         
     }
-    private void EndTouchPrimary(InputAction.CallbackContext ctx) { 
+
+    private void EndTouchPrimary(InputAction.CallbackContext ctx) 
+    { 
         if (OnEndContact != null) 
             OnEndContact(GetScreenPosition(), (float)ctx.time, playerSlider.value); 
             
@@ -84,24 +88,29 @@ public class InputManager : MonoBehaviour
         startTime = time;
     }
 
-    public IEnumerator SwipeUpdate(float startTime){
+
+    public IEnumerator SwipeUpdate(float startTime)
+    {
         float totalTime;
         Vector2 screenPos;
         float speed; 
         float yMaxMovement;
-        
         yMaxMovement = Screen.height; // assuming that the max speed is obtained covering the entire screen in the given max time
 
-        while(true){ 
+        while(true)
+        { 
             totalTime =  Time.time - startTime;
             screenPos = GetScreenPosition();
             speed = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
             speed *= (player.GetComponent<Opponent>().maximumTime - (totalTime)) / _swipeSpeed; // the slider speed increase is proportional to the swipe time
+            
             //Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
-            if( playerSlider.value >= 1f || totalTime >= player.GetComponent<Opponent>().maximumTime ){
+            if( playerSlider.value >= 1f || totalTime >= player.GetComponent<Opponent>().maximumTime )
+            {
                 SwipeEnd(screenPos, Time.time, playerSlider.value); // When called swipe end also stops this coroutine
             }
-            else{   
+            else if(speed > 0)
+            {   
                 playerSlider.value += speed;
             }
             yield return null;

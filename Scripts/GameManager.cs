@@ -3,7 +3,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    
     [SerializeField, Range(20, 60)] public int gameTime = 60;
     [SerializeField, Range(1,3)] private int scorePoints = 2;
     [SerializeField, Range(1,3)] private int backboardBlinkBonus = 4;
@@ -14,7 +13,7 @@ public class GameManager : MonoBehaviour
     /* Variables used to spawn player and enemy and change their position after each throw */
     private float opponentDistanceFromObjective = 12;
     private float minAngle = 60, maxAngle = 120;
-    [SerializeField, Range (10f,25f)]private float minDistanceBetweenOpponents = 10f;
+    [SerializeField, Range (10f,25f)]private float opponentsMinDistance = 10f;
     private float playerAngle, opponentAngle;
 
     private GameObject player;
@@ -33,7 +32,9 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Not found base gameObjects" + player.name + " " +enemy.name +" "+bucket.name);
         
         
-        Physics.IgnoreCollision(player.GetComponentInChildren<SphereCollider>(), enemy.GetComponentInChildren<SphereCollider>());
+        Physics.IgnoreCollision(player.GetComponentInChildren<SphereCollider>(), 
+                                enemy.GetComponentInChildren<SphereCollider>());
+        
         sceneLoader = FindObjectOfType<SceneLoader>();
         timeLeft = (float)gameTime;
     }
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         RespawnOpponent(enemy);
     }
 
-    void Update()
+    private void Update()
     {   
         // Update the time left
         timeLeft -= Time.deltaTime;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     }
 
     /* Function called at the game end, saves the game data and loads the Gameover scene */
-    void StopGame()
+    private void StopGame()
     {
         // Load previous player data
         JsonManager jsonManager = new JsonManager();
@@ -64,27 +65,31 @@ public class GameManager : MonoBehaviour
         
         // Update data
         int playerScore = player.GetComponent<Opponent>().GetScore();
-        playerData.sessionCoins = playerScore;
         playerData.playerHasWon = PlayerHasWon();
         if(playerScore > playerData.highestScore)
             playerData.highestScore = playerScore;
 
+        playerData.sessionCoins = playerScore;
+        
         // Add the coins to the player based on who won
         if(playerData.playerHasWon)
             playerData.totalCoins = playerData.totalCoins + playerScore + winBonus;
         else playerData.totalCoins = playerData.totalCoins + playerScore;
         
+        // Saving new data and loading reward scene
         jsonManager.SaveToJson(playerData, jsonManager.saveDataPath);
         sceneLoader.LoadScene("Reward");
     }
 
     public void UpdateScore(GameObject opponent, bool isBackboardBlinking)
     {  
+        // Calculating the points scored, based on combo and backboard
         int scoreIncrease;
         if(isBackboardBlinking)
             scoreIncrease = scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier() + backboardBlinkBonus;
         else scoreIncrease =  scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier();
         
+        // Increasing the score and updating its UI text
         opponent.GetComponent<Opponent>().IncreaseScore(scoreIncrease);
         opponent.GetComponent<Opponent>().scoreText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
     } 
@@ -117,7 +122,8 @@ public class GameManager : MonoBehaviour
     {
         float angle = Random.Range(minAngle, maxAngle); 
                                                             
-        Vector3 newPosition = bucket.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * opponentDistanceFromObjective;
+        Vector3 newPosition = bucket.transform.position + 
+                                Quaternion.Euler(0, angle, 0) * Vector3.forward * opponentDistanceFromObjective;
         newPosition.y  = 5f;
         Debug.Log("Position :" + newPosition + "Angle  :" + angle);       
         opponent.transform.position = newPosition;

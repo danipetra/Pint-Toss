@@ -5,7 +5,7 @@ public class SceneLoader : Singleton<SceneLoader>
 {
     public void LoadScene(string name)
     {
-        resetTimeScale();
+        ResetTimeScale();
         SceneManager.LoadScene(name);
     }
 
@@ -15,12 +15,13 @@ public class SceneLoader : Singleton<SceneLoader>
         SceneManager.LoadScene(CurrentScene);
     }
 
-    public void QuitGame(){
+    public void QuitGame()
+    {
         Debug.Log("Request to Quit");
         Application.Quit();
     }
 
-    private void resetTimeScale()
+    private void ResetTimeScale()
     {
         if(Time.timeScale != 1f)
         {

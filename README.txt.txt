@@ -1,44 +1,40 @@
 TODO:
 Pc input actions and controls
 
-Bonuses:
+BONUSES:
 Camera rotate during the scene, depending on the button highlighted by the cursor
 Respawn player and enemy after each throw, assigning a new position based on a rotation around the bucket. You have to keep opponents at a minimum distance (ALREADY DEVELOPED, fix it)
-Perfect throw, +1 score (da regolare sulla base dello slider)
 Pause menu
-
-Scene Management and graphics:
-TOIMPORT:
 
 
 IN PROGRESS:
-Today:
-make enemy transparent and red
-_Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
+
 _RewardScene not loading on mobile build, maybe because the jsonManager doesn't have the permission to save data
-
-Tomorrow:
-perfect bonus
+_Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
+perfect throw bonus (base it on slider value .38 < .45)
 Fireball gameplay: by scoring points your energy bar gets filled, once full your ball is on fire and all points are doubled for a certain amount of time (indicated by the same bar emptying) or until you miss a point.
-
+Tutorial board showing game mechanics, integrated into mainmenu scene
 
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
 
 
-KNOWN ISSUES:
+KNOWN ISSUES (marked with _ ):
 
-_Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys
 _lineRenderer and projections: not working
 _Camera not working on 3d, when the player rotates it keeps the same rotation
+
 COMPLETE:
 29 / 04
+
+make enemy transparent and red
+Pint angular velocity when throwing it
+_Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys
 _UI: scaling differently on android and on different devices, it depends on screen resolution
 _Build and test on mobile devices
 Reskin pint
 
 28 / 04
-
 Backboard blink: increase the probability of the Backboard to blink, giving a +6 bonus
 Backboard bouns, hitting it doubles the score. Fixed bugs.
 Save system, each round the player gets the score converted by coins and a bonus if he wins.

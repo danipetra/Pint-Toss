@@ -10,7 +10,8 @@ public class TrajectorySimulator : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private int maxPhysicsFrameIterations = 30;
 
-    private void Start() {
+    private void Start() 
+    {
         InitCollidingObjects();
         CreatePhysicsSimScene();
     }

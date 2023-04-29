@@ -34,7 +34,8 @@ public class Opponent : MonoBehaviour
 
     protected void Update()
     {
-        if(IsOnFire()){
+        if(IsOnFire())
+        {
             scoreMultiplier *= 2;
             Invoke("FireCooldown", fireDuration);
             //TODO Add a shader to the ball
@@ -74,7 +75,8 @@ public class Opponent : MonoBehaviour
         }
     }
 
-    public Vector3 CalculateForce(float forceFactor){
+    public Vector3 CalculateForce(float forceFactor)
+    {
         Vector3 force = new Vector3(
             0,
             yForce * forceFactor * 100,

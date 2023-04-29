@@ -27,19 +27,20 @@ public class Pint : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
-    private void OnCollisionEnter(Collision other) {
-        
+    private void OnCollisionEnter(Collision other) 
+    {
         audioManager.Play("Bounce");
-        
+
+        // Manage floor hit
         if(other.gameObject.tag =="Floor")
         {
             thrower.GetComponent<Opponent>().SetComboValue(0);
             if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
-               
-                
+                   
             // Respawn me and my thrower
             gameManager.RespawnOpponent(thrower);
+            
             if(hitBackboard)
             {
                 audioManager.Play("Boo");
@@ -51,6 +52,7 @@ public class Pint : MonoBehaviour
             }
         }
 
+        // Manage backboard hit 
         if(other.gameObject.tag == "Backboard")
         {
             thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
@@ -66,6 +68,7 @@ public class Pint : MonoBehaviour
 
      private void OnTriggerEnter(Collider other) 
      {
+        // Manage strike and score increase, depending on bonuses
         if(other.gameObject.tag =="ScoreArea")
         {
             audioManager.Play("Bounce");     
