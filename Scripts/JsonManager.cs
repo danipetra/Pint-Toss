@@ -1,6 +1,7 @@
 // TOREFACTOR!
 
 using UnityEngine;
+using UnityEngine.Android;
 using System.IO;
 
 public class JsonManager : MonoBehaviour
@@ -9,15 +10,22 @@ public class JsonManager : MonoBehaviour
     
     private void Awake()
     {
+        
         PlayerData playerData = new PlayerData();
         InitializeJson(playerData);
-        string data = File.ReadAllText(saveDataPath);
+        PlayerData data = LoadJson(saveDataPath);
     }
 
     private void InitializeJson(PlayerData playerData)
     {
-        if (!File.Exists(saveDataPath))
+        if (!File.Exists(saveDataPath)) {
+            playerData.level = 0;
+            playerData.totalCoins = 0;
+            playerData.sessionCoins = 0;
+            playerData.playerHasWon = false;
+            playerData.highestScore = 0;
             SaveToJson(playerData, saveDataPath);
+        }   
     }
 
     public void SaveToJson(PlayerData playerData, string jsonPath)
