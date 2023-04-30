@@ -1,5 +1,11 @@
-TODO:
-Pc input actions and controls
+IMPROVEMENTS:
+Base perfect throw on collisions instead than with values, so that it's independent from changes
+Implement an Observer to handle pint collisions, it would significantly improve code, test performances
+
+KNOWN ISSUES (marked with _ ):
+_lineRenderer and projections: not working
+_Camera not working on 3d, when the player rotates it keeps the same rotation
+_Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
 
 BONUSES:
 Camera rotate during the scene, depending on the button highlighted by the cursor
@@ -7,26 +13,23 @@ Respawn player and enemy after each throw, assigning a new position based on a r
 Pause menu
 
 
+
+
 IN PROGRESS:
 
-_RewardScene not loading on mobile build, maybe because the jsonManager doesn't have the permission to save data
-_Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
-perfect throw bonus (base it on slider value .38 < .45)
 Fireball gameplay: by scoring points your energy bar gets filled, once full your ball is on fire and all points are doubled for a certain amount of time (indicated by the same bar emptying) or until you miss a point.
 Tutorial board showing game mechanics, integrated into mainmenu scene
-
+_RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
 
-
-KNOWN ISSUES (marked with _ ):
-
-_lineRenderer and projections: not working
-_Camera not working on 3d, when the player rotates it keeps the same rotation
-
 COMPLETE:
-29 / 04
+30 / 04
+perfect throw bonus (base it on slider value .38 < .45)
+Pc input actions and controls
+Add a text to the player that shows the points if scored
 
+29 / 04
 make enemy transparent and red
 Pint angular velocity when throwing it
 _Slider: can go down if the player swipes down, modify it only if there's an increment in the swipe's Ys

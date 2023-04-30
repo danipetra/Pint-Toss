@@ -13,7 +13,7 @@ public class TextManager : MonoBehaviour
     private PlayerData playerData;
 
    
-    private void Awake()
+    private void Start()
     {
         jsonManager = new JsonManager();
         playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");

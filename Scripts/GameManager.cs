@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(20, 60)] public int gameTime = 60;
     [SerializeField, Range(1,3)] private int scorePoints = 2;
     [SerializeField, Range(1,3)] private int backboardBlinkBonus = 4;
+    private int perfectThrowBonus = 1;
 
     public TMP_Text timeText;
     private int winBonus = 25;
@@ -20,10 +21,14 @@ public class GameManager : MonoBehaviour
     private GameObject enemy;
     private GameObject bucket;
     private SceneLoader sceneLoader;
+    //private JsonManager jsonManager;
+    //private PlayerData playerData;
     private float timeLeft;
 
     private void Awake()
     {
+        
+
         // Load base game objects
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
@@ -32,8 +37,9 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Not found base gameObjects" + player.name + " " +enemy.name +" "+bucket.name);
         
         
-        Physics.IgnoreCollision(player.GetComponentInChildren<SphereCollider>(), 
-                                enemy.GetComponentInChildren<SphereCollider>());
+        Physics.IgnoreCollision(Utils.GetChildWithName(player, "Pint").GetComponent<SphereCollider>(), 
+                                Utils.GetChildWithName(enemy, "Pint").GetComponent<SphereCollider>()
+        );
         
         sceneLoader = FindObjectOfType<SceneLoader>();
         timeLeft = (float)gameTime;
@@ -59,10 +65,9 @@ public class GameManager : MonoBehaviour
     /* Function called at the game end, saves the game data and loads the Gameover scene */
     private void StopGame()
     {
-        // Load previous player data
+        // Load previous player data, NOT WORKING IF CALLED ON StopGame()
         JsonManager jsonManager = new JsonManager();
-        PlayerData playerData = jsonManager.LoadJson(jsonManager.saveDataPath);
-        
+        PlayerData playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");
         // Update data
         int playerScore = player.GetComponent<Opponent>().GetScore();
         playerData.playerHasWon = PlayerHasWon();
@@ -77,21 +82,24 @@ public class GameManager : MonoBehaviour
         else playerData.totalCoins = playerData.totalCoins + playerScore;
         
         // Saving new data and loading reward scene
-        jsonManager.SaveToJson(playerData, jsonManager.saveDataPath);
+        jsonManager.SaveToJson(playerData, Application.persistentDataPath + "/playerData.json");
         sceneLoader.LoadScene("Reward");
     }
 
-    public void UpdateScore(GameObject opponent, bool isBackboardBlinking)
+    public int UpdateScore(GameObject opponent, float throwerForce, bool isBackboardBlinking)
     {  
         // Calculating the points scored, based on combo and backboard
         int scoreIncrease;
         if(isBackboardBlinking)
             scoreIncrease = scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier() + backboardBlinkBonus;
         else scoreIncrease =  scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier();
-        
+        if(throwerForce >0.40 && throwerForce < 0.43f)
+            scoreIncrease += perfectThrowBonus;
         // Increasing the score and updating its UI text
         opponent.GetComponent<Opponent>().IncreaseScore(scoreIncrease);
         opponent.GetComponent<Opponent>().scoreText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
+
+        return scoreIncrease;
     } 
 
     private bool PlayerHasWon()

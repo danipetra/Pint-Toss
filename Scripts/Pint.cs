@@ -2,6 +2,7 @@ using UnityEngine;
 public class Pint : MonoBehaviour
 {
     public bool canBeThrown;
+    public float throwerForce;
     private bool hitBackboard;
     private bool hasBackboardBlinkBonus;
 
@@ -27,6 +28,7 @@ public class Pint : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
+    /* TODO manage the events on a bucket script, or even better with an Observer Design Pattern */
     private void OnCollisionEnter(Collision other) 
     {
         audioManager.Play("Bounce");
@@ -34,7 +36,7 @@ public class Pint : MonoBehaviour
         // Manage floor hit
         if(other.gameObject.tag =="Floor")
         {
-            thrower.GetComponent<Opponent>().SetComboValue(0);
+            thrower.GetComponent<Opponent>().SetComboBarValue(0);
             if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
                    
@@ -74,13 +76,17 @@ public class Pint : MonoBehaviour
             audioManager.Play("Bounce");     
             audioManager.Play("Score");
 
-            gameManager.UpdateScore(thrower, hasBackboardBlinkBonus);
+            int scoreIncrease = gameManager.UpdateScore(thrower, throwerForce, hasBackboardBlinkBonus);
             if(hasBackboardBlinkBonus) // TODO Deactivate blink on backboard
-            
-            thrower.GetComponent<Opponent>().SetComboValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
+            Debug.Log("COMBO! " + thrower.GetComponent<Opponent>().GetComboValue() + 1 );
+            thrower.GetComponent<Opponent>().SetComboBarValue(thrower.GetComponent<Opponent>().GetComboValue() + 1 );
             if(hitBackboard && thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             
+            if(thrower.tag == "Player"){
+                thrower.GetComponent<Player>().ShowPoints(scoreIncrease);
+            }
+
             // Respawn me and my thrower
             gameManager.RespawnOpponent(thrower);
         }    

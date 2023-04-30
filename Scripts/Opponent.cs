@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -7,6 +8,7 @@ public class Opponent : MonoBehaviour
     [Range(3f,5f)] public float fireDuration;
     // TODO make private
     public TMP_Text scoreText;
+    private Slider comboBar;
     //[SerializeField] TrajectorySimulator trajectorySimulator;
     [SerializeField, Range(10, 25)]public float force; //TODO change it to protected
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
@@ -30,11 +32,17 @@ public class Opponent : MonoBehaviour
 
         pint = Utils.GetChildWithName(gameObject, "Pint");
         if(!pint) Debug.LogError("Pint not found");
+
+        if(tag =="Player") comboBar = GameObject.Find("Player Combo Bar").GetComponent<Slider>();
+        else if(tag =="Enemy") comboBar = GameObject.Find("Enemy Combo Bar").GetComponent<Slider>();
+        if(!comboBar)Debug.LogError("Combo Bar Not Found!");
+
     }
 
     protected void Update()
     {
-        if(IsOnFire())
+        
+        if(comboBar.value >= comboBar.maxValue)
         {
             scoreMultiplier *= 2;
             Invoke("FireCooldown", fireDuration);
@@ -55,6 +63,7 @@ public class Opponent : MonoBehaviour
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;
+            pint.GetComponent<Pint>().throwerForce = forceFactor;
             pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
@@ -109,9 +118,9 @@ public class Opponent : MonoBehaviour
 
     public int GetScore() => score;
 
-    public void SetComboValue(int val) => comboValue = val;
+    public void SetComboBarValue(int val) => comboBar.value = val;
 
-    public int GetComboValue() => comboValue;
+    public int GetComboValue() => (int)comboBar.value;
 
     public int GetScoreMultiplier() => scoreMultiplier;
     

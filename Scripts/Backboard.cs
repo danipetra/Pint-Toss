@@ -20,7 +20,7 @@ public class Backboard : MonoBehaviour
     {
         if(!isBlinking && Random.Range(0f, 1f) < blinkChance )
         {
-            Debug.LogWarning("Blink ! " );
+            //Debug.LogWarning("Blink ! " );
             StartCoroutine(Blink());
         }
     }

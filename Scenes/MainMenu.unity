@@ -7474,6 +7474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hiscore Number Text
       objectReference: {fileID: 0}
+    - target: {fileID: 4645370351531716903, guid: ba3ad3785f280e24b836a4c12c751128, type: 3}
+      propertyPath: m_text
+      value: 000
+      objectReference: {fileID: 0}
     - target: {fileID: 4645370351531716905, guid: ba3ad3785f280e24b836a4c12c751128, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8257,6 +8261,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1622859253}
     m_Modifications:
+    - target: {fileID: 9174376777860164984, guid: c3866bb532af19b4ea02345f7f5128d0, type: 3}
+      propertyPath: m_text
+      value: 00000000
+      objectReference: {fileID: 0}
     - target: {fileID: 9174376777860164990, guid: c3866bb532af19b4ea02345f7f5128d0, type: 3}
       propertyPath: m_Name
       value: Coins Number Text
@@ -8327,7 +8335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9174376777860164991, guid: c3866bb532af19b4ea02345f7f5128d0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 475
+      value: 352.35
       objectReference: {fileID: 0}
     - target: {fileID: 9174376777860164991, guid: c3866bb532af19b4ea02345f7f5128d0, type: 3}
       propertyPath: m_AnchoredPosition.y
