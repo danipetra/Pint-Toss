@@ -16,7 +16,7 @@ public class TextManager : MonoBehaviour
     private void Start()
     {
         jsonManager = new JsonManager();
-        playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");
+        playerData = jsonManager.LoadJson(jsonManager.saveDataPath);
     }
 
     private void Update()

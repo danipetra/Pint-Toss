@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         else playerData.totalCoins = playerData.totalCoins + playerScore;
         
         // Saving new data and loading reward scene
-        jsonManager.SaveToJson(playerData, Application.persistentDataPath + "/playerData.json");
+        jsonManager.SaveToJson(playerData, jsonManager.saveDataPath);
         sceneLoader.LoadScene("Reward");
     }
 

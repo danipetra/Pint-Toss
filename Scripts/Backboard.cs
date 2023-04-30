@@ -9,11 +9,13 @@ public class Backboard : MonoBehaviour
     [SerializeField, Range(5 , 15)] private int blinkTime = 5;
     private bool isBlinking;
     private TMP_Text text;
+    private Color defaultTextColor;
 
     private void Awake() 
     {
         isBlinking = false;
         text = GetComponentInChildren<TMP_Text>();
+        defaultTextColor = text.color;
     }
 
     private void FixedUpdate()
@@ -28,12 +30,15 @@ public class Backboard : MonoBehaviour
     private IEnumerator Blink()
     {
         isBlinking = true;
-        text.color = Color.red;
-
+        text.color = Color.blue;
+        text.text = "x4";
+        text.fontSize++;
         yield return new WaitForSeconds(blinkTime); 
         
+        text.text = "x2";
+        text.fontSize--;
         isBlinking = false;
-        text.color = Color.white;
+        text.color = defaultTextColor;
     }
 
     public bool IsBlinking() => isBlinking;
