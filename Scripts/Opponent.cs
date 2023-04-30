@@ -51,20 +51,19 @@ public class Opponent : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        Debug.Log("COOLING DOWN! ");
         float fireRemainingTime = fireTotalDuration;
         scoreMultiplier *= 2;
+        pint.GetComponent<Pint>().SetOnFire(true);
 
         while(fireRemainingTime >= 0){
-            Debug.Log(fireRemainingTime);
             fireRemainingTime -= Time.deltaTime;
             comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, comboBar.maxValue, comboBar.minValue);
-            //TODO Play fire shader
             yield return new WaitForFixedUpdate();
         }
-        //TODO Stop fire shader
-        
-        if(scoreMultiplier > 1 )scoreMultiplier /= 2;
+        // Returning to the state before going on fire
+        pint.GetComponent<Pint>().SetOnFire(false);
+        if(scoreMultiplier > 1 )
+            scoreMultiplier /= 2;
         comboBar.value = 0;
         fireCooldown = false;
         fireCoroutine = null;

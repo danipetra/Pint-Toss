@@ -19,7 +19,7 @@ public class Enemy : Opponent
     {
         base.FixedUpdate();
         if(canThrow && pint.GetComponent<Pint>().canBeThrown)
-            StartCoroutine(PerformThrow());
+            StartCoroutine(PerfectThrowForDebugging());
     }
 
     private IEnumerator PerformThrow()

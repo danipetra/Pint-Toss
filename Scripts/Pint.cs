@@ -100,6 +100,11 @@ public class Pint : MonoBehaviour
         rigidBody.angularVelocity = Vector3.zero;
     }
 
+    public void SetOnFire(bool fireMode){
+        if(fireMode) GetComponentInChildren<ParticleSystem>().Play();
+        else  GetComponentInChildren<ParticleSystem>().Stop();
+    }
+
     public GameObject GetThrower() => thrower;
 
 }

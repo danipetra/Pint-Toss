@@ -13,12 +13,7 @@ Camera rotate during the scene, depending on the button highlighted by the curso
 Respawn player and enemy after each throw, assigning a new position based on a rotation around the bucket. You have to keep opponents at a minimum distance (ALREADY DEVELOPED, fix it)
 Pause menu
 
-
-
-
 IN PROGRESS:
-Shaders 
-Illuminations
 _RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
 Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
@@ -26,6 +21,8 @@ _Player Throwing: For the first throw and sometimes during the game the inputMan
 
 COMPLETE:
 30 / 04
+Fire basic particles 
+Basic lighting (only on game scene), change settings on build
 Refactoring
 Fireball gameplay: by scoring points your energy bar gets filled, once full your ball is on fire and all points are doubled for a certain amount of time (indicated by the same bar emptying) or until you miss a point.
 perfect throw bonus (base it on slider value .38 < .45)
