@@ -15,9 +15,9 @@ public class Enemy : Opponent
         Utils.GetChildWithName(gameObject, "Pint").GetComponentInChildren<MeshRenderer>().material.color = enemyColor;
     }
 
-    new void Update()
+    new void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if(canThrow && pint.GetComponent<Pint>().canBeThrown)
             StartCoroutine(PerformThrow());
     }
@@ -26,6 +26,17 @@ public class Enemy : Opponent
     {
         canThrow = false;
         float force = Mathf.Abs( Utils.RandomGaussian(0, 1) );
+        float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );
+
+        yield return new WaitForSeconds(delay);
+        ThrowPint(force);
+        canThrow = true;
+    }
+
+    private IEnumerator PerfectThrowForDebugging(){
+        
+        canThrow = false;
+        float force = .41F;//Mathf.Abs( Utils.RandomGaussian(0, 1) );
         float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );
 
         yield return new WaitForSeconds(delay);

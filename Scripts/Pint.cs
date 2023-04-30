@@ -37,6 +37,7 @@ public class Pint : MonoBehaviour
         if(other.gameObject.tag =="Floor")
         {
             thrower.GetComponent<Opponent>().SetComboBarValue(0);
+
             if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
                    

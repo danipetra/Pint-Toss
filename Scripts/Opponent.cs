@@ -2,10 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections;
 
 public class Opponent : MonoBehaviour
 {
-    [Range(3f,5f)] public float fireDuration;
+    [Range(3f,10f)] public float fireTotalDuration;
+    private bool fireCooldown;
+    private Coroutine fireCoroutine;
+
     // TODO make private
     public TMP_Text scoreText;
     private Slider comboBar;
@@ -14,8 +18,6 @@ public class Opponent : MonoBehaviour
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float yForceDividend;
     private int score;
-    private bool isOnFire;
-    private int comboValue;
     private int scoreMultiplier;
     private float yForce;
     
@@ -23,11 +25,10 @@ public class Opponent : MonoBehaviour
 
     protected void Awake()
     {
+        fireCooldown = false;
         score = 0;
         scoreText.text = score.ToString();
         scoreMultiplier = 1;
-        isOnFire = false;
-        comboValue = 0;
         yForce = force / yForceDividend;
 
         pint = Utils.GetChildWithName(gameObject, "Pint");
@@ -36,30 +37,53 @@ public class Opponent : MonoBehaviour
         if(tag =="Player") comboBar = GameObject.Find("Player Combo Bar").GetComponent<Slider>();
         else if(tag =="Enemy") comboBar = GameObject.Find("Enemy Combo Bar").GetComponent<Slider>();
         if(!comboBar)Debug.LogError("Combo Bar Not Found!");
-
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
         
-        if(comboBar.value >= comboBar.maxValue)
+        if(comboBar.value >= comboBar.maxValue && !fireCooldown)
         {
-            scoreMultiplier *= 2;
-            Invoke("FireCooldown", fireDuration);
-            //TODO Add a shader to the ball
-            //TODO Play a sound
+            fireCooldown = true;
+            fireCoroutine = StartCoroutine(Fire());
         }
     }
 
-    private void FireCooldown()
+    private IEnumerator Fire()
     {
-        isOnFire = false;
-        scoreMultiplier /= 2;
+        Debug.Log("COOLING DOWN! ");
+        float fireRemainingTime = fireTotalDuration;
+        scoreMultiplier *= 2;
+
+        while(fireRemainingTime >= 0){
+            Debug.Log(fireRemainingTime);
+            fireRemainingTime -= Time.deltaTime;
+            comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, comboBar.maxValue, comboBar.minValue);
+            //TODO Play fire shader
+            yield return new WaitForFixedUpdate();
+        }
+        //TODO Stop fire shader
+        
+        if(scoreMultiplier > 1 )scoreMultiplier /= 2;
+        comboBar.value = 0;
+        fireCooldown = false;
+        fireCoroutine = null;
+        yield return null;
+        
     }
+
+    /*public void FireBreakdown(){
+        StopCoroutine(fireCoroutine);
+        if(scoreMultiplier > 1 )scoreMultiplier /= 2;
+        comboBar.value = 0;
+        fireCooldown = false;
+
+        // FindObjectOfType<AudioManager>().Play("Fire Breakdown");
+    }*/
 
     public void ThrowPint(float forceFactor)
     {
-        Debug.Log(gameObject.tag +" throw with force :" + forceFactor);
+        // Debug.Log(gameObject.tag +" throw with force :" + forceFactor);
         if(pint.GetComponent<Pint>().canBeThrown){
             transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;
@@ -103,15 +127,6 @@ public class Opponent : MonoBehaviour
         pint.transform.rotation = transform.rotation;
         pint.GetComponent<Pint>().ResetRigitBody();        
         pint.GetComponent<Pint>().canBeThrown = true;
-    }
-
-    public bool IsOnFire()
-    {
-        if(comboValue <= 3)
-            return false;
-
-        comboValue = 0;
-        return true;
     }
 
     public void IncreaseScore(int increase) => score += increase;

@@ -1,10 +1,11 @@
 IMPROVEMENTS:
 Base perfect throw on collisions instead than with values, so that it's independent from changes
 Implement an Observer to handle pint collisions, it would significantly improve code, test performances
+Cooldown mechanic on opponent after he is on fire and misses a shot
 
 KNOWN ISSUES (marked with _ ):
 _lineRenderer and projections: not working
-_Camera not working on 3d, when the player rotates it keeps the same rotation
+_Camera direction needs to change if the player respawns and rotates (not needed for now)
 _Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
 
 BONUSES:
@@ -16,15 +17,17 @@ Pause menu
 
 
 IN PROGRESS:
-
-Fireball gameplay: by scoring points your energy bar gets filled, once full your ball is on fire and all points are doubled for a certain amount of time (indicated by the same bar emptying) or until you miss a point.
-Tutorial board showing game mechanics, integrated into mainmenu scene
+Shaders 
+Illuminations
 _RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
+Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
 
 COMPLETE:
 30 / 04
+Refactoring
+Fireball gameplay: by scoring points your energy bar gets filled, once full your ball is on fire and all points are doubled for a certain amount of time (indicated by the same bar emptying) or until you miss a point.
 perfect throw bonus (base it on slider value .38 < .45)
 Pc input actions and controls
 Add a text to the player that shows the points if scored

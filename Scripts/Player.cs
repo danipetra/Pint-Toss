@@ -19,9 +19,9 @@ public class Player : Opponent{
         pointsText.gameObject.SetActive(false);
     }
 
-    new void Update()
+    new void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
     }
 
     public new void PickPint()
