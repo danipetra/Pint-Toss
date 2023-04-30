@@ -19,7 +19,7 @@ public class Enemy : Opponent
     {
         base.FixedUpdate();
         if(canThrow && pint.GetComponent<Pint>().canBeThrown)
-            StartCoroutine(PerfectThrowForDebugging());
+            StartCoroutine(PerformThrow());
     }
 
     private IEnumerator PerformThrow()
@@ -34,9 +34,9 @@ public class Enemy : Opponent
     }
 
     private IEnumerator PerfectThrowForDebugging(){
-        
+        Debug.LogWarning("Enemy's cheatin!");
         canThrow = false;
-        float force = .41F;//Mathf.Abs( Utils.RandomGaussian(0, 1) );
+        float force = Mathf.Abs( Utils.RandomGaussian(.40f, .44f) );
         float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );
 
         yield return new WaitForSeconds(delay);
