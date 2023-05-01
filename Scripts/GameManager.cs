@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
     private void StopGame()
     {
         // Load previous player data, NOT WORKING IF CALLED ON StopGame()
-        JsonManager jsonManager = new JsonManager();
-        PlayerData playerData = jsonManager.LoadJson(Application.persistentDataPath + "/playerData.json");
+        JsonManager jsonManager = gameObject.AddComponent<JsonManager>();
+        PlayerData playerData = jsonManager.LoadJson();
         // Update data
         int playerScore = player.GetComponent<Opponent>().GetScore();
         playerData.playerHasWon = PlayerHasWon();
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         else playerData.totalCoins = playerData.totalCoins + playerScore;
         
         // Saving new data and loading reward scene
-        jsonManager.SaveToJson(playerData, jsonManager.saveDataPath);
+        jsonManager.SaveToJson(playerData);
         sceneLoader.LoadScene("Reward");
     }
 

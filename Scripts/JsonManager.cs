@@ -1,20 +1,18 @@
-// TOREFACTOR!
-
 using UnityEngine;
 using System.IO;
 
 public class JsonManager : MonoBehaviour
 {
-                                    // Application.persistentDataPath, + "/playerData.json";
-    public string saveDataPath = "";
+                        
+    private string saveDataPath = "";
     
     private void Awake()
     {
-        saveDataPath = Path.Combine(Application.persistentDataPath, "playerData/playerData.json");
-
+        saveDataPath = Path.Combine(Application.persistentDataPath, "playerData.json");
         PlayerData playerData = new PlayerData();
+        
         InitializeJson(playerData);
-        PlayerData data = LoadJson(saveDataPath);
+        PlayerData data = LoadJson();
     }
 
     private void InitializeJson(PlayerData playerData)
@@ -25,20 +23,18 @@ public class JsonManager : MonoBehaviour
             playerData.sessionCoins = 0;
             playerData.playerHasWon = false;
             playerData.highestScore = 0;
-
-            Directory.CreateDirectory(Path.GetDirectoryName(saveDataPath));
             
-            SaveToJson(playerData, saveDataPath);
+            SaveToJson(playerData);
         }   
     }
 
-    public void SaveToJson(PlayerData playerData, string jsonPath)
+    public void SaveToJson(PlayerData playerData)
     {
         string json = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveDataPath, json);
     }
 
-    public PlayerData LoadJson(string jsonPath)
+    public PlayerData LoadJson()
     {
         string json = File.ReadAllText(saveDataPath);
         PlayerData playerData = JsonUtility.FromJson<PlayerData>(json);
