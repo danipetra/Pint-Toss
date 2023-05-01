@@ -6,10 +6,12 @@ using System.IO;
 public class JsonManager : MonoBehaviour
 {
                                     // Application.persistentDataPath, + "/playerData.json";
-    public string saveDataPath = Path.Combine(Application.persistentDataPath, "playerData.json");
+    public string saveDataPath = "";
     
     private void Awake()
     {
+        saveDataPath = Path.Combine(Application.persistentDataPath, "playerData/playerData.json");
+
         PlayerData playerData = new PlayerData();
         InitializeJson(playerData);
         PlayerData data = LoadJson(saveDataPath);
@@ -23,6 +25,9 @@ public class JsonManager : MonoBehaviour
             playerData.sessionCoins = 0;
             playerData.playerHasWon = false;
             playerData.highestScore = 0;
+
+            Directory.CreateDirectory(Path.GetDirectoryName(saveDataPath));
+            
             SaveToJson(playerData, saveDataPath);
         }   
     }
