@@ -480,7 +480,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 785501961}
-  - {fileID: 1962721151}
   - {fileID: 1147040593}
   - {fileID: 1169292558}
   m_Father: {fileID: 0}
@@ -4176,7 +4175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 187470342}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1155453953
 PrefabInstance:
@@ -4449,7 +4448,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 187470342}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1169292559
 MonoBehaviour:
@@ -6990,88 +6989,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4469749976509922, guid: 5a367ff7fe2957344b0564bf2655256e, type: 3}
   m_PrefabInstance: {fileID: 1630456130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1962721149
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1962721151}
-  - component: {fileID: 1962721152}
-  m_Layer: 0
-  m_Name: Audio Manager
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1962721151
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962721149}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 187470342}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1962721152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962721149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce7c52cacacf2340ba2646c2292e842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Drink
-    clip: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Miss
-    clip: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Score
-    clip: {fileID: 8300000, guid: 4154a3b21d077284ca0a3258a020162d, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Floor Touch
-    clip: {fileID: 8300000, guid: f0d9eea305b2c6c419684146d6cb2b93, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Boo
-    clip: {fileID: 8300000, guid: b63af59b6b70ea94a8b247f358f1b2dd, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Main Theme
-    clip: {fileID: 8300000, guid: 285b0842547bace47ad628070050b23b, type: 3}
-    volume: 1
-    pitch: 0.8
-    loop: 1
-    source: {fileID: 0}
-  sceneTransitionTime: 0.4
 --- !u!1001 &1988310046
 PrefabInstance:
   m_ObjectHideFlags: 0

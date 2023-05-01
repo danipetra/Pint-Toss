@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7318235775044712352
+--- !u!1 &59276729296614154
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7318235775044712354}
-  - component: {fileID: 7318235775044712285}
+  - component: {fileID: 59276729296614152}
+  - component: {fileID: 59276729296614391}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: GameController
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7318235775044712354
+--- !u!4 &59276729296614152
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7318235775044712352}
+  m_GameObject: {fileID: 59276729296614154}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7318235775044712285
+--- !u!114 &59276729296614391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7318235775044712352}
+  m_GameObject: {fileID: 59276729296614154}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ce7c52cacacf2340ba2646c2292e842, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Drink
     clip: {fileID: 8300000, guid: 77c1b7992e9f0b34588ae358e40cdeaa, type: 3}
-    volume: 6
+    volume: 10
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   - name: Bounce
     clip: {fileID: 8300000, guid: e99e039c57731c64895d98ac208a2d53, type: 3}
     volume: 1.5
-    pitch: 0.7
+    pitch: 0.6
     loop: 0
     source: {fileID: 0}
   - name: Boo
@@ -81,9 +81,9 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: Loose Theme
+  - name: Reward Theme
     clip: {fileID: 8300000, guid: ea249fed56bdccc40b910bdb09c2fb58, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}

@@ -11,7 +11,7 @@ public class Enemy : Opponent
         base.Awake();
         canThrow = true;
         Color enemyColor = Color.red;
-        enemyColor.a = 0.9f;
+        enemyColor.a = transparency;
         Utils.GetChildWithName(gameObject, "Pint").GetComponentInChildren<MeshRenderer>().material.color = enemyColor;
     }
 

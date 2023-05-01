@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraFollow : Singleton<CameraFollow>
+public class CameraFollow : MonoBehaviour
 {
     private GameObject camTarget;
     private Vector3 offset;

@@ -14,9 +14,7 @@ Respawn player and enemy after each throw, assigning a new position based on a r
 Pause menu
 
 IN PROGRESS:
-Audio manager singleton
-_RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
-Make the audio manager a singleton
+Make the audio manager a singleton and add sounds for: RewardScene, onfire ball, increase volume onDrink
 Add UI measures on the slider for perfect throw and backboard throw
 Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
@@ -24,6 +22,8 @@ _Player Throwing: For the first throw and sometimes during the game the inputMan
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 COMPLETE:
+01 / 05
+_RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
 30 / 04
 Fire basic particles 
 Basic lighting (only on game scene), change settings on build

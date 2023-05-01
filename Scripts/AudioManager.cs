@@ -6,46 +6,70 @@ using System.Collections;
 using System;
 
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    /* Static variable used to save the singleton instance */
     private static AudioManager instance;
+
+    public Sound[] sounds;
     public float sceneTransitionTime = 0.4f;
 
-    /* Mixer was controlled to edit its settings via options menu and PlayerPrefs */
+    /* Mixer needed after edit its settings via options menu and PlayerPrefs */
     //public AudioMixerGroup audioMixerGroup;
     //public AudioMixer audioMixer;
     //public OptionsLoader optionsLoader;
 
+     private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     private void Start()
     {
         //audioMixer.SetFloat("volume", 100f);
+        
         foreach (Sound sound in sounds)
         {
-            //Debug.Log("initializing sounds");
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
-            sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
-            //sound.source.outputAudioMixerGroup = audioMixerGroup;
+            InitSound(sound);
         }
-        StartCoroutine(playMainTheme());
+
+        StartCoroutine(PlayTheme("Main Theme"));
     }
 
-    IEnumerator playMainTheme()
+    private void InitSound(Sound sound){
+        sound.source = gameObject.AddComponent<AudioSource>();
+        sound.source.clip = sound.clip;
+        sound.source.volume = sound.volume;
+        sound.source.pitch = sound.pitch;
+        sound.source.loop = sound.loop;
+        //sound.source.outputAudioMixerGroup = audioMixerGroup;
+    }
+
+    IEnumerator PlayTheme(string themeName)
     {
         yield return new WaitForSeconds(sceneTransitionTime);
-        Play("Main Theme");
+        Play(themeName);
     }
 
     public void Update()
     {
-        if(SceneManager.GetActiveScene().name == "GameOver")
+        if(SceneManager.GetActiveScene().name == "Reward")
         {
             Pause("Main Theme");
-        }else //if(SceneManager.GetActiveScene().name != "GameOver")
+            PlayTheme("Reward Theme");
+        }else 
         {
+            Pause("Reward Theme");
             UnPause("Main Theme");
         }
     }
