@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         
-
         // Load base game objects
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
@@ -65,7 +64,7 @@ public class GameManager : MonoBehaviour
     /* Function called at the game end, saves the game data and loads the Gameover scene */
     private void StopGame()
     {
-        // Load previous player data, NOT WORKING IF CALLED ON StopGame()
+        // Load previous player data
         JsonManager jsonManager = gameObject.AddComponent<JsonManager>();
         PlayerData playerData = jsonManager.LoadJson();
         // Update data
@@ -81,7 +80,7 @@ public class GameManager : MonoBehaviour
             playerData.totalCoins = playerData.totalCoins + playerScore + winBonus;
         else playerData.totalCoins = playerData.totalCoins + playerScore;
         
-        // Saving new data and loading reward scene
+        // Save new data to Json file and load reward scene
         jsonManager.SaveToJson(playerData);
         sceneLoader.LoadScene("Reward");
     }
@@ -95,6 +94,7 @@ public class GameManager : MonoBehaviour
         else scoreIncrease =  scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier();
         if(throwerForce >0.40 && throwerForce < 0.43f)
             scoreIncrease += perfectThrowBonus;
+        
         // Increasing the score and updating its UI text
         opponent.GetComponent<Opponent>().IncreaseScore(scoreIncrease);
         opponent.GetComponent<Opponent>().scoreText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         //PositionOpponent(opponent);
         
         // TODO 
-        //use the raycast to determine the correct direction to score a backboard strike, it varies depending on the position
+        //use the line renderer to determine the correct direction to score a backboard strike, it varies depending on the position
                                                 //Pass that direction instead of the objective fixed direction
         Utils.LookAtLockedY(opponent.transform, bucket.transform);
     }

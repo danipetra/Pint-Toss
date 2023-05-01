@@ -1,6 +1,5 @@
  using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 using System;
@@ -9,7 +8,7 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     /* Static variable used to save the singleton instance */
-    private static AudioManager instance;
+    private static AudioManager instance; 
 
     public Sound[] sounds;
     public float sceneTransitionTime = 0.4f;
@@ -19,7 +18,7 @@ public class AudioManager : MonoBehaviour
     //public AudioMixer audioMixer;
     //public OptionsLoader optionsLoader;
 
-     private void Awake()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
@@ -61,19 +60,6 @@ public class AudioManager : MonoBehaviour
         Play(themeName);
     }
 
-    public void Update()
-    {
-        if(SceneManager.GetActiveScene().name == "Reward")
-        {
-            Pause("Main Theme");
-            PlayTheme("Reward Theme");
-        }else 
-        {
-            Pause("Reward Theme");
-            UnPause("Main Theme");
-        }
-    }
-
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -112,4 +98,5 @@ public class AudioManager : MonoBehaviour
         }
         s.source.UnPause();
     }
+
 }

@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Drink
-    clip: {fileID: 8300000, guid: 77c1b7992e9f0b34588ae358e40cdeaa, type: 3}
-    volume: 10
+    clip: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
+    volume: 5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -77,14 +77,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Main Theme
     clip: {fileID: 8300000, guid: 285b0842547bace47ad628070050b23b, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Reward Theme
-    clip: {fileID: 8300000, guid: ea249fed56bdccc40b910bdb09c2fb58, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0.3
+    pitch: 0.9
     loop: 1
     source: {fileID: 0}
   - name: Backboard
@@ -92,5 +86,17 @@ MonoBehaviour:
     volume: 3
     pitch: 0.7
     loop: 0
+    source: {fileID: 0}
+  - name: Reward Theme
+    clip: {fileID: 8300000, guid: d9d17d7590ef4f54493eeaf9ebc33a3e, type: 3}
+    volume: 1
+    pitch: 0.7
+    loop: 1
+    source: {fileID: 0}
+  - name: Fire
+    clip: {fileID: 8300000, guid: 1e29258f76c49604a9d4e2656cc5cb29, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   sceneTransitionTime: 0.4

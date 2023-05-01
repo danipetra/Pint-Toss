@@ -1,12 +1,10 @@
 KNOWN ISSUES (marked with _ ):
 _Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
-_lineRenderer and projections: not working
 _Camera direction needs to change if the player respawns and rotates (not needed for now)
 
 IMPROVEMENTS:
 Base perfect throw on collisions instead than with values, so that it's independent from changes
 Implement an Observer to handle pint collisions, it would significantly improve code, test performances
-Cooldown mechanic on opponent after he is on fire and misses a shot
 
 BONUSES:
 Camera rotate during the scene, depending on the button highlighted by the cursor
@@ -14,8 +12,8 @@ Respawn player and enemy after each throw, assigning a new position based on a r
 Pause menu
 
 IN PROGRESS:
-Make the audio manager a singleton and add sounds for: RewardScene, onfire ball, increase volume onDrink
-Add UI measures on the slider for perfect throw and backboard throw
+deactivate backboard blink in case someone scored with it
+deactivate fire on opponent after he is on fire and misses a shot
 Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
@@ -23,7 +21,9 @@ _Player Throwing: For the first throw and sometimes during the game the inputMan
 
 COMPLETE:
 01 / 05
+Add UI measures on the slider for perfect throw and backboard throw
 _RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
+Make the audio manager a singleton and add sounds for: RewardScene, onfire ball, increase volume onDrink
 30 / 04
 Fire basic particles 
 Basic lighting (only on game scene), change settings on build

@@ -6,19 +6,21 @@ using System.Collections;
 
 public class Opponent : MonoBehaviour
 {
+    // Variables to handle opponent scoring and fire mechanic
+    private int score;
+    private int scoreMultiplier;
     [Range(3f,10f)] public float fireTotalDuration;
     private bool fireCooldown;
     private Coroutine fireCoroutine;
 
-    // TODO make private
     public TMP_Text scoreText;
     private Slider comboBar;
     //[SerializeField] TrajectorySimulator trajectorySimulator;
-    [SerializeField, Range(10, 25)]public float force; //TODO change it to protected
+    
+    // Throw variables that do not depend on player input
+    [SerializeField, Range(10, 25)]public float force; 
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float yForceDividend;
-    private int score;
-    private int scoreMultiplier;
     private float yForce;
     
     protected GameObject pint;
@@ -41,7 +43,6 @@ public class Opponent : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        
         if(comboBar.value >= comboBar.maxValue && !fireCooldown)
         {
             fireCooldown = true;
@@ -49,50 +50,21 @@ public class Opponent : MonoBehaviour
         }
     }
 
-    private IEnumerator Fire()
-    {
-        float fireRemainingTime = fireTotalDuration;
-        scoreMultiplier *= 2;
-        pint.GetComponent<Pint>().SetOnFire(true);
-
-        while(fireRemainingTime >= 0){
-            fireRemainingTime -= Time.deltaTime;
-            comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, comboBar.maxValue, comboBar.minValue);
-            yield return new WaitForFixedUpdate();
-        }
-        // Returning to the state before going on fire
-        pint.GetComponent<Pint>().SetOnFire(false);
-        if(scoreMultiplier > 1 )
-            scoreMultiplier /= 2;
-        comboBar.value = 0;
-        fireCooldown = false;
-        fireCoroutine = null;
-        yield return null;
-        
-    }
-
-    /*public void FireBreakdown(){
-        StopCoroutine(fireCoroutine);
-        if(scoreMultiplier > 1 )scoreMultiplier /= 2;
-        comboBar.value = 0;
-        fireCooldown = false;
-
-        // FindObjectOfType<AudioManager>().Play("Fire Breakdown");
-    }*/
-
     public void ThrowPint(float forceFactor)
     {
         // Debug.Log(gameObject.tag +" throw with force :" + forceFactor);
-        if(pint.GetComponent<Pint>().canBeThrown){
+        if(pint.GetComponent<Pint>().canBeThrown)
+        {
             transform.DetachChildren();
             pint.GetComponent<Pint>().canBeThrown = false;
             pint.GetComponent<Pint>().throwerForce = forceFactor;
             pint.GetComponent<Rigidbody>().isKinematic = false;
             pint.GetComponent<Rigidbody>().useGravity = true;
             
+            //trajectorySimulator.SimulateTrajectory(pint, transform.position, forceFactor);
+
             // Calculate the corrensponding force and apply it to the pint
             Vector3 force = CalculateForce(forceFactor);
-            //trajectorySimulator.SimulateTrajectory(pint, transform.position, forceFactor);
             pint.GetComponent<Rigidbody>().AddRelativeForce(
                 0,  // determined by my rotation
                 force.y,
@@ -120,6 +92,7 @@ public class Opponent : MonoBehaviour
     public void PickPint()
     {
         pint.transform.parent = this.transform;
+
         FindObjectOfType<AudioManager>().Play("Drink");
 
         pint.transform.position  = transform.position;
@@ -127,6 +100,39 @@ public class Opponent : MonoBehaviour
         pint.GetComponent<Pint>().ResetRigitBody();        
         pint.GetComponent<Pint>().canBeThrown = true;
     }
+
+    private IEnumerator Fire()
+    {
+        float fireRemainingTime = fireTotalDuration;
+        scoreMultiplier *= 2;
+        pint.GetComponent<Pint>().SetOnFire(true);
+
+        while(fireRemainingTime >= 0)
+        {
+            fireRemainingTime -= Time.deltaTime;
+            comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, comboBar.maxValue, comboBar.minValue);
+            yield return new WaitForFixedUpdate();
+        }
+        
+        // Returning to the state before going on fire
+        pint.GetComponent<Pint>().SetOnFire(false);
+        if(scoreMultiplier > 1 )
+            scoreMultiplier /= 2;
+        comboBar.value = 0;
+        fireCooldown = false;
+        fireCoroutine = null;
+        yield return null;
+        
+    }
+
+    /*public void FireBreakdown(){
+        StopCoroutine(fireCoroutine);
+        if(scoreMultiplier > 1 )scoreMultiplier /= 2;
+        comboBar.value = 0;
+        fireCooldown = false;
+
+        // FindObjectOfType<AudioManager>().Play("Fire Breakdown");
+    }*/
 
     public void IncreaseScore(int increase) => score += increase;
 

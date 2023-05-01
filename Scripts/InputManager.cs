@@ -6,7 +6,7 @@ using System.Collections;
 [DefaultExecutionOrder(-1)] // run before any other script
 public class InputManager : MonoBehaviour
 {
-    /* Defines the events and the corrensponding functions called when they occur */
+    /* Defines the delegates and the corrensponding events, to wich subscribe for listening for input */
     #region Events
     private delegate void StartContact(Vector2 position, float time);
     private event StartContact OnStartContact;
@@ -19,11 +19,10 @@ public class InputManager : MonoBehaviour
     public event DownSwipe OnSwipeDown;
     #endregion
 
-    /* Swipe variables: put into a class */
+    /* Swipe variables */
     [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
     [SerializeField, Range(15f, 50f)] private float _swipeSpeed = 25f; // Needed to avoid to update the slider too fast
     [SerializeField, Range(0f, 15f)] private float minimumSwipeDistance = 1f;
-    
     private Vector2 startPosition, endPosition;
     private float startTime, endTime;
 

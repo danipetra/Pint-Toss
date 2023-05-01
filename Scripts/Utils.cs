@@ -1,27 +1,30 @@
 using UnityEngine;
 
+/* Class with utility static-only functions */
 public class Utils : MonoBehaviour
 {
-    public static Vector3 ScreenToWorld(Vector2 position){
+    public static Vector3 ScreenToWorld(Vector2 position)
+    {
         return Camera.main.ScreenToWorldPoint(position);
     }
 
-    public static float NormalizedDifference(float a, float b, float max, float min){
+    public static float NormalizedDifference(float a, float b, float max, float min)
+    {
         float diff;
         diff = (a - b)/ (max - min);
         return diff;
     }
 
-    public static GameObject GetChildWithName(GameObject parent, string name){
-        Transform childTransform = parent.transform.Find(name);
-        if (childTransform != null) {
+    public static GameObject GetChildWithName(GameObject parent, string childName)
+    {
+        Transform childTransform = parent.transform.Find(childName);
+        if (childTransform != null) 
             return childTransform.gameObject;
-        } else {
-            return null;
-        }
+         else return null;
     }
 
-    public static void LookAtLockedY(Transform sourceT, Transform targetT){
+    public static void LookAtLockedY(Transform sourceT, Transform targetT)
+    {
         Vector3 direction = -(sourceT.position - targetT.position);
         // Set the y-rotation of the source object to the angle between the direction vector and the target object's forward vector
         sourceT.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -57,8 +60,9 @@ public class Utils : MonoBehaviour
         return Mathf.Clamp(std * sigma + mean, minValue, maxValue);
     }
 
-    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) 
+    {
          return angle * ( point - pivot) + pivot;
-     }
+    }
 
 }

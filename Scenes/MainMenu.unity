@@ -7094,6 +7094,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b1e31e96be7b6cc4fa9e94155e47c309, type: 3}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e29258f76c49604a9d4e2656cc5cb29, type: 3}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[8].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[8].name
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[8].pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 59276729296614391, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
+      propertyPath: sounds.Array.data[8].volume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0394e5246b955bd4faa07fe68a9000d6, type: 3}
 --- !u!65 &65476899628708652

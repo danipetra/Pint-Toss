@@ -8,6 +8,7 @@ public class Backboard : MonoBehaviour
     [SerializeField, Range(0f , 1f)] private float blinkChance = 0.0003f;
     [SerializeField, Range(5 , 15)] private int blinkTime = 5;
     private bool isBlinking;
+    
     private TMP_Text text;
     private Color defaultTextColor;
 
@@ -33,6 +34,7 @@ public class Backboard : MonoBehaviour
         text.color = Color.blue;
         text.text = "x4";
         text.fontSize++;
+
         yield return new WaitForSeconds(blinkTime); 
         
         text.text = "x2";

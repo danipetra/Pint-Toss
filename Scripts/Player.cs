@@ -30,13 +30,14 @@ public class Player : Opponent{
         forceSliderObj.GetComponent<Slider>().value = 0;
     }
 
-    public void ShowPoints(int points){
-        
-        float time = .4f;
-        StartCoroutine(ActivatePointsText(points, time));
+    public void ShowPoints(int points)
+    {
+        float showTime = .4f;
+        StartCoroutine(ActivatePointsText(points, showTime));
     }
 
-    private IEnumerator ActivatePointsText(int points, float time){
+    private IEnumerator ActivatePointsText(int points, float time)
+    {
         pointsText.gameObject.SetActive(true);
         pointsText.text = " + "+ points;
 

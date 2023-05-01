@@ -13,7 +13,6 @@ public class Pint : MonoBehaviour
     private GameManager gameManager;
     private AudioManager audioManager;
 
-
     private void Awake()
     {
         canBeThrown = true;
@@ -28,7 +27,8 @@ public class Pint : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
-    /* TODO manage the events on a bucket script, or even better with an Observer Design Pattern */
+    /* Manage all the pint collisions (backboard, floor), excluding the one in the score area 
+    TODO manage the events on a bucket script, or even better with an Observer Design Pattern */
     private void OnCollisionEnter(Collision other) 
     {
         audioManager.Play("Bounce");
@@ -47,30 +47,32 @@ public class Pint : MonoBehaviour
             if(hitBackboard)
             {
                 audioManager.Play("Boo");
+
                 hitBackboard = false;
                 hasBackboardBlinkBonus = false;
+                
                 if(thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
-                
+            
             }
         }
 
         // Manage backboard hit 
         if(other.gameObject.tag == "Backboard")
         {
-            thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
             audioManager.Play("Backboard");
+
+            thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() * 2);
             hitBackboard = true;
 
             if(other.gameObject.GetComponent<Backboard>().IsBlinking())
-            {
                 hasBackboardBlinkBonus = true;
-            }
+            
         }    
     }
 
-     private void OnTriggerEnter(Collider other) 
-     {
+    private void OnTriggerEnter(Collider other) 
+    {
         // Manage strike and score increase, depending on bonuses
         if(other.gameObject.tag =="ScoreArea")
         {
@@ -84,7 +86,8 @@ public class Pint : MonoBehaviour
             if(hitBackboard && thrower.GetComponent<Opponent>().GetScoreMultiplier() > 1)
                     thrower.GetComponent<Opponent>().SetScoreMultiplier(thrower.GetComponent<Opponent>().GetScoreMultiplier() / 2);
             
-            if(thrower.tag == "Player"){
+            if(thrower.tag == "Player")
+            {
                 thrower.GetComponent<Player>().ShowPoints(scoreIncrease);
             }
 
@@ -101,8 +104,16 @@ public class Pint : MonoBehaviour
     }
 
     public void SetOnFire(bool fireMode){
-        if(fireMode) GetComponentInChildren<ParticleSystem>().Play();
-        else  GetComponentInChildren<ParticleSystem>().Stop();
+        if(fireMode)
+        {
+            GetComponentInChildren<ParticleSystem>().Play();
+            audioManager.Play("Fire");
+        } 
+        else
+        {
+            GetComponentInChildren<ParticleSystem>().Stop();
+            audioManager.Stop("Fire");
+        }
     }
 
     public GameObject GetThrower() => thrower;

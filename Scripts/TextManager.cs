@@ -12,7 +12,6 @@ public class TextManager : MonoBehaviour
     private JsonManager jsonManager;
     private PlayerData playerData;
 
-   
     private void Start()
     {
         jsonManager = gameObject.AddComponent<JsonManager>();
