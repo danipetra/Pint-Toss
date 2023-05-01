@@ -38,5 +38,14 @@ public class TestInput : MonoBehaviour
             yield return null;// in this way you do not wait until next call
         }
     }
+
+    private IEnumerator EnemyPerfectThrowDebugging(Enemy enemy){
+        Debug.LogWarning("Enemy's cheatin!");
+        float force = Mathf.Abs( Utils.RandomGaussian(.40f, .44f) );
+        float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );
+
+        yield return new WaitForSeconds(delay);
+        enemy.ThrowPint(force);
+    }
     
 }

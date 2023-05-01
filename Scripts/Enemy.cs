@@ -33,14 +33,5 @@ public class Enemy : Opponent
         canThrow = true;
     }
 
-    private IEnumerator PerfectThrowForDebugging(){
-        Debug.LogWarning("Enemy's cheatin!");
-        canThrow = false;
-        float force = Mathf.Abs( Utils.RandomGaussian(.40f, .44f) );
-        float delay = force + Mathf.Abs( Utils.RandomGaussian(0, force) );
-
-        yield return new WaitForSeconds(delay);
-        ThrowPint(force);
-        canThrow = true;
-    }
+    
 }
