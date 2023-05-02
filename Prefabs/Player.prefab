@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 1486805040367687316}
   - component: {fileID: 29357403254390483}
   - component: {fileID: 5766560038830670409}
+  - component: {fileID: 5926281803408747449}
   m_Layer: 0
   m_Name: Points Text
   m_TagString: Untagged
@@ -392,6 +393,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 29357403254390483}
   m_maskType: 0
+--- !u!95 &5926281803408747449
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331895905002935549}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0f846d6bcae7f14093daa7b6b00dfca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5393200815456634597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -399,6 +420,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 640950195027306882}
     m_Modifications:
+    - target: {fileID: 6397436081847908876, guid: 44d70b52e49c9cb4ea611f50f682754e, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 6397436081847908882, guid: 44d70b52e49c9cb4ea611f50f682754e, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -1,15 +1,6 @@
 KNOWN ISSUES (marked with _ ):
 _Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
-_Camera direction needs to change if the player respawns and rotates (not needed for now)
-
-IMPROVEMENTS:
-Base perfect throw on collisions instead than with values, so that it's independent from changes
-Implement an Observer to handle pint collisions, it would significantly improve code, test performances
-
-BONUSES:
-Camera rotate during the scene, depending on the button highlighted by the cursor
-Respawn player and enemy after each throw, assigning a new position based on a rotation around the bucket. You have to keep opponents at a minimum distance (ALREADY DEVELOPED, fix it)
-Pause menu
+_Last android build takes some seconds in black screen before starting
 
 IN PROGRESS:
 deactivate backboard blink in case someone scored with it
@@ -17,13 +8,24 @@ deactivate fire on opponent after he is on fire and misses a shot
 Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
+IMPROVEMENTS:
+Base perfect throw on collisions instead than with values, so that it's independent from changes
+Implement an Observer to handle pint collisions, it would significantly improve code, test performances
+
+BONUSES:
+Respawn player and enemy after each throw, assigning a new position based on a rotation around the bucket. You have to keep opponents at a minimum distance (ALREADY DEVELOPED, fix it)
+Pause menu (Already developed)
+Camera direction needs to change if the player respawns and rotates (not needed for now)
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 COMPLETE:
 01 / 05
-Add UI measures on the slider for perfect throw and backboard throw
+Added UI measures on the slider for perfect throw and backboard throw
 _RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
 Make the audio manager a singleton and add sounds for: RewardScene, onfire ball, increase volume onDrink
+
 30 / 04
 Fire basic particles 
 Basic lighting (only on game scene), change settings on build
@@ -60,7 +62,7 @@ _GameManager couldn't find the player caues it was istantiated after the GameMan
 _inputManager: tweak it and Player Values to give smoother controls
 _Enemy, throwing him instead of only the ball gameObject
 _Enemy AI, repeating the throw coroutine at each Update and not applying any delay while deciding the throw force, resulting in too many throws
-_Enemy AI, checking the pint value canBeTrown or using force protected variable causes a bug in the throwing force
+_Enemy AI, checking the pint value canBeTrown or using force variable causes a bug in the throwing force
 24 / 04
 OnFire system
 Enemy IA, chooses a random value between 0 and 1, as the player, but without the slider. The more is near 1 the more time it takes(chose a cubic distribution)
@@ -70,10 +72,11 @@ Force Slider
 Audio Manager
 OnFire system base(To complete)
 Camera Follow
+.. / ..
 Refactoring
 Touch timer
 Score system
 Fix X throw force and use direction of Ball game object instead 
 Input system and slider update, Throw based on slider value
 FIX reset dello slider ad ogni impatto della palla col suolo (e non con un nuovo input del player)
-Inform yourself about parabolic raycasting, to predict the right force before throwing
+Inform about parabolic raycasting, to predict the right force before throwing
