@@ -14,14 +14,14 @@ public class CollisionsManager : MonoBehaviour
 
     public void HandleBackboardCollision(Pint pint, Opponent opponent)
     {
-            _audioManager.Play("Bounce");
-            _audioManager.Play("Backboard");
+        _audioManager.Play("Bounce");
+        _audioManager.Play("Backboard");
 
-            opponent.SetScoreMultiplier(opponent.GetScoreMultiplier() * 2);
-            pint.hitBackboard = true;
+        opponent.SetScoreMultiplier(opponent.GetScoreMultiplier() * 2);
+        pint.hitBackboard = true;
 
-            if(_backboard.GetComponent<Backboard>().IsBlinking())
-                pint.hasBackboardBlinkBonus = true;
+        if(_backboard.GetComponent<Backboard>().IsBlinking())
+            pint.hasBackboardBlinkBonus = true;
     }
 
     public void HandleFloorCollision(Pint pint, Opponent opponent)

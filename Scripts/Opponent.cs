@@ -6,10 +6,12 @@ using System.Collections;
 
 public class Opponent : MonoBehaviour
 {
-    // Variables to handle opponent scoring and fire mechanic
-    [Range(3f,10f)] public float fireTotalDuration;
+    // Scoring variables
     private int _score;
     private int _scoreMultiplier;
+
+    // Variables to handle on fire mechanic
+    [Range(3f,10f)] public float fireTotalDuration;
     private bool _fireCooldown;
     private Coroutine _fireCoroutine;
 
@@ -17,11 +19,13 @@ public class Opponent : MonoBehaviour
     private Slider _comboBar;
     //[SerializeField] TrajectorySimulator trajectorySimulator;
     
-    // Throw variables that do not depend on player input
+    // Throw variables 
     [SerializeField, Range(10, 25)]public float force; 
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
     [SerializeField, Range(2, 5)]private float _yForceDividend;
+    private float _forceMultiplier = 100f;
     private float _yForce;
+    private float _randomAngularVelocity = 10f;
     
     protected GameObject pint;
 
@@ -38,7 +42,7 @@ public class Opponent : MonoBehaviour
 
         if(tag =="Player") _comboBar = GameObject.Find("Player Combo Bar").GetComponent<Slider>();
         else if(tag =="Enemy") _comboBar = GameObject.Find("Enemy Combo Bar").GetComponent<Slider>();
-        if(!_comboBar)Debug.LogError("Combo Bar Not Found!");
+        if(!_comboBar)Debug.LogError(name+ ": " + "Combo Bar Not Found!");
     }
 
     protected void FixedUpdate()
@@ -46,7 +50,7 @@ public class Opponent : MonoBehaviour
         if(_comboBar.value >= _comboBar.maxValue && !_fireCooldown)
         {
             _fireCooldown = true;
-            _fireCoroutine = StartCoroutine(Fire());
+            _fireCoroutine = StartCoroutine(SetPintOnFire());
         }
     }
 
@@ -65,15 +69,12 @@ public class Opponent : MonoBehaviour
 
             // Calculate the corrensponding force and apply it to the pint
             Vector3 force = CalculateForce(forceFactor);
-            pint.GetComponent<Rigidbody>().AddRelativeForce(
-                0,  // determined by my rotation
-                force.y,
-                force.z 
-            );
+            pint.GetComponent<Rigidbody>().AddRelativeForce(0, force.y, force.z);
 
+            // rotating the pint around itself at random velocity 
             pint.GetComponent<Rigidbody>().angularVelocity = new Vector3(
-                UnityEngine.Random.Range(1f, 10f),
-                UnityEngine.Random.Range(-5f, 5f),
+                UnityEngine.Random.Range(-_randomAngularVelocity, _randomAngularVelocity),
+                UnityEngine.Random.Range(-_randomAngularVelocity, _randomAngularVelocity),
                 0
             );
         }
@@ -83,8 +84,8 @@ public class Opponent : MonoBehaviour
     {
         Vector3 force = new Vector3(
             0,
-            _yForce * forceFactor * 100,
-            this.force * forceFactor * 100 
+            _yForce * forceFactor * _forceMultiplier,
+            this.force * forceFactor * _forceMultiplier 
         );
         return force;
     }
@@ -101,12 +102,14 @@ public class Opponent : MonoBehaviour
         pint.GetComponent<Pint>().canBeThrown = true;
     }
 
-    private IEnumerator Fire()
+    private IEnumerator SetPintOnFire()
     {
         float fireRemainingTime = fireTotalDuration;
         _scoreMultiplier *= 2;
-        pint.GetComponent<Pint>().SetOnFire(true);
 
+        pint.GetComponent<Pint>().SetFireMode(true);
+
+        // Calculating remaining time and updating the fireBar of the opponent
         while(fireRemainingTime >= 0)
         {
             fireRemainingTime -= Time.deltaTime;
@@ -114,15 +117,20 @@ public class Opponent : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         
-        // Returning to the state before going on fire
-        pint.GetComponent<Pint>().SetOnFire(false);
+        EndPintOnFireMode();
+        
+        yield return null; 
+    }
+
+    // Ends the on fire mode of the Pint
+    private void EndPintOnFireMode()
+    {
+        pint.GetComponent<Pint>().SetFireMode(false);
         if(_scoreMultiplier > 1 )
             _scoreMultiplier /= 2;
         _comboBar.value = 0;
         _fireCooldown = false;
         _fireCoroutine = null;
-        yield return null;
-        
     }
 
     /*public void FireBreakdown(){

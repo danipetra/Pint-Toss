@@ -34,6 +34,11 @@ public class Pint : MonoBehaviour
         if (!_collisionsManager) Debug.LogError("Collisions manager not found in the scene");
     }
 
+    private void FixedUpdate() 
+    {
+
+    }
+
 
     private void OnCollisionEnter(Collision other) 
     {
@@ -63,7 +68,7 @@ public class Pint : MonoBehaviour
         _myRigidBody.angularVelocity = Vector3.zero;
     }
 
-    public void SetOnFire(bool fireMode){
+    public void SetFireMode(bool fireMode){
         if(fireMode)
         {
             GetComponentInChildren<ParticleSystem>().Play();
