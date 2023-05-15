@@ -6,15 +6,15 @@ public class Pint : MonoBehaviour
     [HideInInspector] public bool hitBackboard;
     [HideInInspector] public bool hasBackboardBlinkBonus;
 
-    private Vector3 startPosition;
-    private Quaternion startRotation;
-    private GameObject thrower;
-    private Rigidbody rigidBody;
+    private Vector3 _startPosition;
+    private Quaternion _startRotation;
+    private GameObject _thrower;
+    private Rigidbody _myRigidBody;
 
     private CollisionsManager _collisionsManager;
-
-    private GameManager gameManager;
-    private AudioManager audioManager;
+    // Remove this two 
+    private GameManager _gameManager;
+    private AudioManager _audioManager;
 
     private void Awake()
     {
@@ -22,13 +22,13 @@ public class Pint : MonoBehaviour
         hitBackboard = false;
         hasBackboardBlinkBonus = false;
 
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-        thrower = transform.parent.gameObject;
-        rigidBody = GetComponent<Rigidbody>();
+        _startPosition = transform.position;
+        _startRotation = transform.rotation;
+        _thrower = transform.parent.gameObject;
+        _myRigidBody = GetComponent<Rigidbody>();
 
-        gameManager = FindObjectOfType<GameManager>();
-        if (!gameManager) Debug.LogError("game manager not found in the scene");
+        _gameManager = FindObjectOfType<GameManager>();
+        if (!_gameManager) Debug.LogError("game manager not found in the scene");
 
         _collisionsManager = FindObjectOfType<CollisionsManager>();
         if (!_collisionsManager) Debug.LogError("Collsions manager not found in the scene");
@@ -38,10 +38,10 @@ public class Pint : MonoBehaviour
     private void OnCollisionEnter(Collision other) 
     {
         if(other.gameObject.CompareTag("Floor"))
-            _collisionsManager.HandleFloorCollision(this, thrower.GetComponent<Opponent>());
+            _collisionsManager.HandleFloorCollision(this, _thrower.GetComponent<Opponent>());
  
         if(other.gameObject.CompareTag("Backboard"))
-            _collisionsManager.HandleBackboardCollision(this, thrower.GetComponent<Opponent>());
+            _collisionsManager.HandleBackboardCollision(this, _thrower.GetComponent<Opponent>());
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -49,37 +49,37 @@ public class Pint : MonoBehaviour
         // Manage strike and score increase, depending on bonuses
         if(other.gameObject.CompareTag("ScoreArea"))
         {
-            _collisionsManager.HandleBucketCollision(this, thrower.GetComponent<Opponent>());
+            _collisionsManager.HandleBucketCollision(this, _thrower.GetComponent<Opponent>());
             
-            // Move this code
-            int scoreIncrease = gameManager.UpdateScore(thrower, throwerForce, hasBackboardBlinkBonus);
-              if(thrower.CompareTag("Player")){
+            // Move this code, the pint should not know or manage the score increase
+            int scoreIncrease = _gameManager.UpdateScore(_thrower, throwerForce, hasBackboardBlinkBonus);
+              if(_thrower.CompareTag("Player")){
                 Debug.LogWarning(name + ": "+ " move the function to the opponent");
-                thrower.GetComponent<Player>().ShowPoints(scoreIncrease); 
+                _thrower.GetComponent<Player>().ShowPoints(scoreIncrease); 
               }
         }    
     }
 
     public void ResetRigitBody()
     {
-        rigidBody.useGravity = false;
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero;
+        _myRigidBody.useGravity = false;
+        _myRigidBody.velocity = Vector3.zero;
+        _myRigidBody.angularVelocity = Vector3.zero;
     }
 
     public void SetOnFire(bool fireMode){
         if(fireMode)
         {
             GetComponentInChildren<ParticleSystem>().Play();
-            audioManager.Play("Fire");
+            _audioManager.Play("Fire");
         } 
         else
         {
             GetComponentInChildren<ParticleSystem>().Stop();
-            audioManager.Stop("Fire");
+            _audioManager.Stop("Fire");
         }
     }
 
-    public GameObject GetThrower() => thrower;
+    public GameObject GetThrower() => _thrower;
 
 }
