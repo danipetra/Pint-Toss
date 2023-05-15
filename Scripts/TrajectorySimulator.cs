@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class TrajectorySimulator : MonoBehaviour
 {
-    private Scene simulationScene;
-    private PhysicsScene physicsScene;
-    private List<Transform> collidingObjects;
-    [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private int maxPhysicsFrameIterations = 30;
+    private Scene _simulationScene;
+    private PhysicsScene _physicsScene;
+    private List<Transform> _collidingObjects;
+    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private int _maxPhysicsFrameIterations = 30;
 
     private void Start() 
     {
@@ -18,24 +18,24 @@ public class TrajectorySimulator : MonoBehaviour
     
     /**/
     private void InitCollidingObjects(){
-        collidingObjects.Add(GameObject.FindGameObjectWithTag("Backboard").transform);
-        collidingObjects.Add(GameObject.FindGameObjectWithTag("Floor").transform);
-        collidingObjects.Add(GameObject.FindGameObjectWithTag("Objective").transform);
+        _collidingObjects.Add(GameObject.FindGameObjectWithTag("Backboard").transform);
+        _collidingObjects.Add(GameObject.FindGameObjectWithTag("Floor").transform);
+        _collidingObjects.Add(GameObject.FindGameObjectWithTag("Objective").transform);
     }
 
     /**/
     private GameObject InstantiateGhostObject(Transform objectTransform, Vector3 position, Quaternion rotation){
             GameObject ghost = Instantiate(objectTransform.gameObject, position, rotation);
             ghost.GetComponent<Renderer>().enabled = false;
-            SceneManager.MoveGameObjectToScene(ghost, simulationScene);
+            SceneManager.MoveGameObjectToScene(ghost, _simulationScene);
             return ghost;
     }
 
     /* Creates an invisible scene used to simulate the throwable object's trajectory */
     private void CreatePhysicsSimScene(){
-        simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
-        physicsScene = simulationScene.GetPhysicsScene();
-        foreach(Transform objT in collidingObjects){
+        _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
+        _physicsScene = _simulationScene.GetPhysicsScene();
+        foreach(Transform objT in _collidingObjects){
             InstantiateGhostObject(objT, objT.position, objT.rotation);
         }
     }
@@ -47,11 +47,11 @@ public class TrajectorySimulator : MonoBehaviour
         //simulate the throw and the trajectory of the throwable using the ghost object
         ghost.GetComponent<Pint>().GetThrower().GetComponent<Player>().ThrowPint(swipeIntensity);
         //render the line to show the trajectory
-        lineRenderer.positionCount = maxPhysicsFrameIterations;
-        for(int i  = 0; i < maxPhysicsFrameIterations; i++){
+        _lineRenderer.positionCount = _maxPhysicsFrameIterations;
+        for(int i  = 0; i < _maxPhysicsFrameIterations; i++){
                                     //Maybe you need to cange it to deltaTime
-            physicsScene.Simulate(Time.fixedDeltaTime);
-            lineRenderer.SetPosition(i, ghost.transform.position);
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            _lineRenderer.SetPosition(i, ghost.transform.position);
         }
         Destroy(ghost);
     }

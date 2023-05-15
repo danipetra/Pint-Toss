@@ -7,46 +7,46 @@ using System.Collections;
 public class Opponent : MonoBehaviour
 {
     // Variables to handle opponent scoring and fire mechanic
-    private int score;
-    private int scoreMultiplier;
     [Range(3f,10f)] public float fireTotalDuration;
-    private bool fireCooldown;
-    private Coroutine fireCoroutine;
+    private int _score;
+    private int _scoreMultiplier;
+    private bool _fireCooldown;
+    private Coroutine _fireCoroutine;
 
     public TMP_Text scoreText;
-    private Slider comboBar;
+    private Slider _comboBar;
     //[SerializeField] TrajectorySimulator trajectorySimulator;
     
     // Throw variables that do not depend on player input
     [SerializeField, Range(10, 25)]public float force; 
     [SerializeField, Range(0.5f, 2f)] public float maximumTime = 1.2f;
-    [SerializeField, Range(2, 5)]private float yForceDividend;
-    private float yForce;
+    [SerializeField, Range(2, 5)]private float _yForceDividend;
+    private float _yForce;
     
     protected GameObject pint;
 
     protected void Awake()
     {
-        fireCooldown = false;
-        score = 0;
-        scoreText.text = score.ToString();
-        scoreMultiplier = 1;
-        yForce = force / yForceDividend;
+        _fireCooldown = false;
+        _score = 0;
+        scoreText.text = _score.ToString();
+        _scoreMultiplier = 1;
+        _yForce = force / _yForceDividend;
 
         pint = Utils.GetChildWithName(gameObject, "Pint");
         if(!pint) Debug.LogError("Pint not found");
 
-        if(tag =="Player") comboBar = GameObject.Find("Player Combo Bar").GetComponent<Slider>();
-        else if(tag =="Enemy") comboBar = GameObject.Find("Enemy Combo Bar").GetComponent<Slider>();
-        if(!comboBar)Debug.LogError("Combo Bar Not Found!");
+        if(tag =="Player") _comboBar = GameObject.Find("Player Combo Bar").GetComponent<Slider>();
+        else if(tag =="Enemy") _comboBar = GameObject.Find("Enemy Combo Bar").GetComponent<Slider>();
+        if(!_comboBar)Debug.LogError("Combo Bar Not Found!");
     }
 
     protected void FixedUpdate()
     {
-        if(comboBar.value >= comboBar.maxValue && !fireCooldown)
+        if(_comboBar.value >= _comboBar.maxValue && !_fireCooldown)
         {
-            fireCooldown = true;
-            fireCoroutine = StartCoroutine(Fire());
+            _fireCooldown = true;
+            _fireCoroutine = StartCoroutine(Fire());
         }
     }
 
@@ -83,7 +83,7 @@ public class Opponent : MonoBehaviour
     {
         Vector3 force = new Vector3(
             0,
-            yForce * forceFactor * 100,
+            _yForce * forceFactor * 100,
             this.force * forceFactor * 100 
         );
         return force;
@@ -104,23 +104,23 @@ public class Opponent : MonoBehaviour
     private IEnumerator Fire()
     {
         float fireRemainingTime = fireTotalDuration;
-        scoreMultiplier *= 2;
+        _scoreMultiplier *= 2;
         pint.GetComponent<Pint>().SetOnFire(true);
 
         while(fireRemainingTime >= 0)
         {
             fireRemainingTime -= Time.deltaTime;
-            comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, comboBar.maxValue, comboBar.minValue);
+            _comboBar.value = Utils.NormalizedDifference(fireRemainingTime, Time.deltaTime, _comboBar.maxValue, _comboBar.minValue);
             yield return new WaitForFixedUpdate();
         }
         
         // Returning to the state before going on fire
         pint.GetComponent<Pint>().SetOnFire(false);
-        if(scoreMultiplier > 1 )
-            scoreMultiplier /= 2;
-        comboBar.value = 0;
-        fireCooldown = false;
-        fireCoroutine = null;
+        if(_scoreMultiplier > 1 )
+            _scoreMultiplier /= 2;
+        _comboBar.value = 0;
+        _fireCooldown = false;
+        _fireCoroutine = null;
         yield return null;
         
     }
@@ -134,15 +134,15 @@ public class Opponent : MonoBehaviour
         // FindObjectOfType<AudioManager>().Play("Fire Breakdown");
     }*/
 
-    public void IncreaseScore(int increase) => score += increase;
+    public void IncreaseScore(int increase) => _score += increase;
 
-    public int GetScore() => score;
+    public int GetScore() => _score;
 
-    public void SetComboBarValue(int val) => comboBar.value = val;
+    public void SetComboBarValue(int val) => _comboBar.value = val;
 
-    public int GetComboValue() => (int)comboBar.value;
+    public int GetComboValue() => (int)_comboBar.value;
 
-    public int GetScoreMultiplier() => scoreMultiplier;
+    public int GetScoreMultiplier() => _scoreMultiplier;
     
-    public void SetScoreMultiplier(int value) => scoreMultiplier = value;
+    public void SetScoreMultiplier(int value) => _scoreMultiplier = value;
 }

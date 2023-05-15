@@ -20,29 +20,29 @@ public class InputManager : MonoBehaviour
     #endregion
 
     /* Swipe variables */
-    [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
+    [SerializeField, Range(0f, 1f)] private float _directionThreshold = 0.9f;
     [SerializeField, Range(15f, 50f)] private float _swipeSpeed = 25f; // Needed to avoid to update the slider too fast
-    [SerializeField, Range(0f, 15f)] private float minimumSwipeDistance = 1f;
-    private Vector2 startPosition, endPosition;
-    private float startTime, endTime;
+    [SerializeField, Range(0f, 15f)] private float _minimumSwipeDistance = 1f;
+    private Vector2 _startPosition, _endPosition;
+    private float _startTime, _endTime;
 
-    private PlayerControls playerControls;
-    private GameObject player;
-    private Slider playerSlider;
-    private Coroutine coroutine;
+    private PlayerControls _playerControls;
+    private GameObject _player;
+    private Slider _playerSlider;
+    private Coroutine _coroutine;
 
     private void Awake() 
     {
-        playerControls = new PlayerControls();
-        player = GameObject.FindGameObjectWithTag( "Player" );
-        if(!player) Debug.LogError("Player not found");
-        playerSlider = GameObject.Find("Force Slider").GetComponent<Slider>();
-        if(!playerSlider) Debug.LogError("Force Slider GameObject not found");
+        _playerControls = new PlayerControls();
+        _player = GameObject.FindGameObjectWithTag( "Player" );
+        if(!_player) Debug.LogError("Player not found");
+        _playerSlider = GameObject.Find("Force Slider").GetComponent<Slider>();
+        if(!_playerSlider) Debug.LogError("Force Slider GameObject not found");
     } 
 
     private void OnEnable()
     {
-        playerControls.Enable();
+        _playerControls.Enable();
         /* Subscribe for the events */
         OnStartContact += SwipeStart;
         OnEndContact += SwipeEnd;
@@ -50,7 +50,7 @@ public class InputManager : MonoBehaviour
 
     private void OnDisable()
     {
-        playerControls.Disable();
+        _playerControls.Disable();
         /* Unsubscribe for the events */
         OnStartContact -= SwipeStart;
         OnEndContact -= SwipeEnd;
@@ -58,8 +58,8 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        playerControls.InGame.PrimaryContact.started += ctx => StartTouchPrimary(ctx);    
-        playerControls.InGame.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);   
+        _playerControls.InGame.PrimaryContact.started += ctx => StartTouchPrimary(ctx);    
+        _playerControls.InGame.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);   
     }
 
 
@@ -74,17 +74,17 @@ public class InputManager : MonoBehaviour
     private void EndTouchPrimary(InputAction.CallbackContext ctx) 
     { 
         if (OnEndContact != null) 
-            OnEndContact(GetScreenPosition(), (float)ctx.time, playerSlider.value); 
+            OnEndContact(GetScreenPosition(), (float)ctx.time, _playerSlider.value); 
             
     }
 
     private void SwipeStart(Vector2 position, float time)
     {
-        coroutine = StartCoroutine(
-            SwipeUpdate(startTime)
+        _coroutine = StartCoroutine(
+            SwipeUpdate(_startTime)
             );
-        startPosition = position;
-        startTime = time;
+        _startPosition = position;
+        _startTime = time;
     }
 
 
@@ -100,17 +100,17 @@ public class InputManager : MonoBehaviour
         { 
             totalTime =  Time.time - startTime;
             screenPos = GetScreenPosition();
-            speed = Utils.NormalizedDifference(screenPos.y , startPosition.y, yMaxMovement, 0);
-            speed *= (player.GetComponent<Opponent>().maximumTime - (totalTime)) / _swipeSpeed; // the slider speed increase is proportional to the swipe time
+            speed = Utils.NormalizedDifference(screenPos.y , _startPosition.y, yMaxMovement, 0);
+            speed *= (_player.GetComponent<Opponent>().maximumTime - (totalTime)) / _swipeSpeed; // the slider speed increase is proportional to the swipe time
             
             //Debug.Log("Swipe Time: " +  totalTime +" Y Movement: "+ speed);
-            if( playerSlider.value >= 1f || totalTime >= player.GetComponent<Opponent>().maximumTime )
+            if( _playerSlider.value >= 1f || totalTime >= _player.GetComponent<Opponent>().maximumTime )
             {
-                SwipeEnd(screenPos, Time.time, playerSlider.value); // When called swipe end also stops this coroutine
+                SwipeEnd(screenPos, Time.time, _playerSlider.value); // When called swipe end also stops this coroutine
             }
             else if(speed > 0)
             {   
-                playerSlider.value += speed;
+                _playerSlider.value += speed;
             }
             yield return null;
         }
@@ -119,42 +119,42 @@ public class InputManager : MonoBehaviour
 
     public void SwipeEnd(Vector2 position, float time, float sliderValue)
     {
-        endPosition = position;
-        endTime = time;
-        float totalTime = endTime - startTime;
+        _endPosition = position;
+        _endTime = time;
+        float totalTime = _endTime - _startTime;
         DetectSwipeForce(sliderValue);
-        StopCoroutine(coroutine);
+        StopCoroutine(_coroutine);
     }
 
     /* Called at the end of the Swipe */
     private void DetectSwipeForce(float forceFactor)
     {
-        if(Vector3.Distance(startPosition, endPosition) >= minimumSwipeDistance) 
+        if(Vector3.Distance(_startPosition, _endPosition) >= _minimumSwipeDistance) 
             //&& (endTime - startTime) < maximumTime)
         {
             
-            Vector3 direction = endPosition + startPosition;
+            Vector3 direction = _endPosition + _startPosition;
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
             //SwipeDirection(direction2D);
             
             //float swipeIntensity = //Utils.NormalizedDifference(endPosition.y, startPosition.y);
-            player.GetComponent<Opponent>().ThrowPint(forceFactor);
+            _player.GetComponent<Opponent>().ThrowPint(forceFactor);
         }
     }
 
     /* Calls an event based on the swipe direction */
     private void SwipeDirection(Vector2 direction)
     {
-        if (Vector2.Dot(Vector2.up, direction) > directionThreshold)
+        if (Vector2.Dot(Vector2.up, direction) > _directionThreshold)
         {
             if (OnSwipeUp != null) OnSwipeUp();
         }
-        else if (Vector2.Dot(Vector2.down, direction) > directionThreshold)
+        else if (Vector2.Dot(Vector2.down, direction) > _directionThreshold)
         {
             if (OnSwipeDown != null) OnSwipeDown();
         }
 
     }
 
-    public Vector2 GetScreenPosition() => playerControls.InGame.PrimaryPosition.ReadValue<Vector2>();
+    public Vector2 GetScreenPosition() => _playerControls.InGame.PrimaryPosition.ReadValue<Vector2>();
 }

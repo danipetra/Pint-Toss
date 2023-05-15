@@ -3,48 +3,48 @@
 public class PauseMenu : MonoBehaviour
 {
 
-    public static bool gameIsPaused = false;
-    public GameObject pauseMenuUI;
-    private AudioManager audioManager;
+    public static bool _gameIsPaused = false;
+    public GameObject _pauseMenuUI;
+    private AudioManager _audioManager;
     
     private void Start()
     {
-        audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
+        _audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
     }
 
     public void Resume()
     {
-        audioManager.Play("Button Press");
+        _audioManager.Play("Button Press");
 
-        foreach (Sound sound in audioManager.sounds)
+        foreach (Sound sound in _audioManager.sounds)
         {
-            audioManager.UnPause(sound.name);
+            _audioManager.UnPause(sound.name);
         }
 
-        pauseMenuUI.SetActive(false);
+        _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        gameIsPaused = false;
+        _gameIsPaused = false;
     }
 
     public void Pause()
     {
-        audioManager.Play("Button Press");
+        _audioManager.Play("Button Press");
 
-        foreach(Sound sound in audioManager.sounds)
+        foreach(Sound sound in _audioManager.sounds)
         {
-            audioManager.Pause(sound.name);
+            _audioManager.Pause(sound.name);
         }
             
-        pauseMenuUI.SetActive(true);
+        _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        gameIsPaused = true;
+        _gameIsPaused = true;
     }
 
     public void stopGame()
     {
         GetComponent<SceneLoader>().LoadScene("MainMenu");
         Time.timeScale = 1f;
-        gameIsPaused = false;
+        _gameIsPaused = false;
     }
 
     public GameObject getResumeButton()

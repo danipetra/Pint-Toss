@@ -5,23 +5,23 @@ using System.Collections;
 
 public class Backboard : MonoBehaviour
 {
-    [SerializeField, Range(0f , 1f)] private float blinkChance = 0.0003f;
-    [SerializeField, Range(5 , 15)] private int blinkTime = 5;
-    private bool isBlinking;
+    [SerializeField, Range(0f , 1f)] private float _blinkChance = 0.0003f;
+    [SerializeField, Range(5 , 15)] private int _blinkTime = 5;
+    private bool _isBlinking;
     
-    private TMP_Text text;
-    private Color defaultTextColor;
+    private TMP_Text _text;
+    private Color _defaultTextColor;
 
     private void Awake() 
     {
-        isBlinking = false;
-        text = GetComponentInChildren<TMP_Text>();
-        defaultTextColor = text.color;
+        _isBlinking = false;
+        _text = GetComponentInChildren<TMP_Text>();
+        _defaultTextColor = _text.color;
     }
 
     private void FixedUpdate()
     {
-        if(!isBlinking && Random.Range(0f, 1f) < blinkChance )
+        if(!_isBlinking && Random.Range(0f, 1f) < _blinkChance )
         {
             //Debug.LogWarning("Blink ! " );
             StartCoroutine(Blink());
@@ -30,18 +30,18 @@ public class Backboard : MonoBehaviour
 
     private IEnumerator Blink()
     {
-        isBlinking = true;
-        text.color = Color.blue;
-        text.text = "x4";
-        text.fontSize++;
+        _isBlinking = true;
+        _text.color = Color.blue;
+        _text.text = "x4";
+        _text.fontSize++;
 
-        yield return new WaitForSeconds(blinkTime); 
+        yield return new WaitForSeconds(_blinkTime); 
         
-        text.text = "x2";
-        text.fontSize--;
-        isBlinking = false;
-        text.color = defaultTextColor;
+        _text.text = "x2";
+        _text.fontSize--;
+        _isBlinking = false;
+        _text.color = _defaultTextColor;
     }
 
-    public bool IsBlinking() => isBlinking;
+    public bool IsBlinking() => _isBlinking;
 }

@@ -5,18 +5,18 @@ using System.Collections;
 
 public class Player : Opponent{
 
-    private GameObject forceSliderObj;
-    private TMP_Text pointsText;
+    private GameObject _forceSliderObj;
+    private TMP_Text _pointsText;
     
     new void Awake()
     {
         base.Awake();
 
-        forceSliderObj = GameObject.Find("Force Slider");
-        if(!forceSliderObj) Debug.LogError("Force Slider GameObject not found");
+        _forceSliderObj = GameObject.Find("Force Slider");
+        if(!_forceSliderObj) Debug.LogError("Force Slider GameObject not found");
 
-        pointsText = Utils.GetChildWithName(gameObject, "Points Text").GetComponent<TMP_Text>();
-        pointsText.gameObject.SetActive(false);
+        _pointsText = Utils.GetChildWithName(gameObject, "Points Text").GetComponent<TMP_Text>();
+        _pointsText.gameObject.SetActive(false);
     }
 
     new void FixedUpdate()
@@ -27,7 +27,7 @@ public class Player : Opponent{
     public new void PickPint()
     {
         base.PickPint();
-        forceSliderObj.GetComponent<Slider>().value = 0;
+        _forceSliderObj.GetComponent<Slider>().value = 0;
     }
 
     public void ShowPoints(int points)
@@ -38,11 +38,11 @@ public class Player : Opponent{
 
     private IEnumerator ActivatePointsText(int points, float time)
     {
-        pointsText.gameObject.SetActive(true);
-        pointsText.text = " + "+ points;
+        _pointsText.gameObject.SetActive(true);
+        _pointsText.text = " + "+ points;
 
         yield return new WaitForSeconds(time);
 
-        pointsText.gameObject.SetActive(false);
+        _pointsText.gameObject.SetActive(false);
     }
 }

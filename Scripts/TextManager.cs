@@ -9,13 +9,13 @@ public class TextManager : MonoBehaviour
     public TMP_Text winnerText;
     //public Button rewardedAdButton;
 
-    private JsonManager jsonManager;
-    private PlayerData playerData;
+    private JsonManager _jsonManager;
+    private PlayerData _playerData;
 
     private void Start()
     {
-        jsonManager = gameObject.AddComponent<JsonManager>();
-        playerData = jsonManager.LoadJson();
+        _jsonManager = gameObject.AddComponent<JsonManager>();
+        _playerData = _jsonManager.LoadJson();
     }
 
     private void Update()
@@ -36,22 +36,22 @@ public class TextManager : MonoBehaviour
 
     private void UpdateSessionCoins()
     {
-        coinsText.text = playerData.sessionCoins.ToString();
+        coinsText.text = _playerData.sessionCoins.ToString();
     }
 
     private void UpdateTotalCoins()
     {
-        totalCoinsText.text = playerData.totalCoins.ToString();
+        totalCoinsText.text = _playerData.totalCoins.ToString();
     }
 
     private void UpdateHiscore()
     {
-        hiscoreText.text = playerData.highestScore.ToString();
+        hiscoreText.text = _playerData.highestScore.ToString();
     }
 
     private void UpdateWinnerText()
     {
-        if(playerData.playerHasWon)
+        if(_playerData.playerHasWon)
             winnerText.text = "You win!";
         else winnerText.text = "You loose!";
     }

@@ -8,7 +8,7 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     /* Static variable used to save the singleton instance */
-    private static AudioManager instance; 
+    private static AudioManager _instance; 
 
     public Sound[] sounds;
     public float sceneTransitionTime = 0.4f;
@@ -22,9 +22,9 @@ public class AudioManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
         else
         {
