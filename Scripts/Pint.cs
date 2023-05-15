@@ -31,7 +31,7 @@ public class Pint : MonoBehaviour
         if (!_gameManager) Debug.LogError("game manager not found in the scene");
 
         _collisionsManager = FindObjectOfType<CollisionsManager>();
-        if (!_collisionsManager) Debug.LogError("Collsions manager not found in the scene");
+        if (!_collisionsManager) Debug.LogError("Collisions manager not found in the scene");
     }
 
 
@@ -51,12 +51,7 @@ public class Pint : MonoBehaviour
         {
             _collisionsManager.HandleBucketCollision(this, _thrower.GetComponent<Opponent>());
             
-            // Move this code, the pint should not know or manage the score increase
-            int scoreIncrease = _gameManager.UpdateScore(_thrower, throwerForce, hasBackboardBlinkBonus);
-              if(_thrower.CompareTag("Player")){
-                Debug.LogWarning(name + ": "+ " move the function to the opponent");
-                _thrower.GetComponent<Player>().ShowPoints(scoreIncrease); 
-              }
+            _gameManager.HandleScoreIncrease(_thrower.GetComponent<Opponent>(), throwerForce, hasBackboardBlinkBonus);
         }    
     }
 

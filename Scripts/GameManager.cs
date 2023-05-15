@@ -85,22 +85,32 @@ public class GameManager : MonoBehaviour
         sceneLoader.LoadScene("Reward");
     }
 
-    public int UpdateScore(GameObject opponent, float throwerForce, bool isBackboardBlinking)
+    public void HandleScoreIncrease(Opponent opponent, float throwerForce, bool isBackboardBlinking)
     {  
-        // Calculating the points scored, based on combo and backboard
+        // ()! Calculating the points scored, based on combo and backboard
         int scoreIncrease;
         if(isBackboardBlinking)
-            scoreIncrease = scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier() + backboardBlinkBonus;
-        else scoreIncrease =  scorePoints * opponent.GetComponent<Opponent>().GetScoreMultiplier();
+            scoreIncrease = scorePoints * opponent.GetScoreMultiplier() + backboardBlinkBonus;
+        else scoreIncrease =  scorePoints * opponent.GetScoreMultiplier();
+        
+        // !!!! Hardcoded make them global
         if(throwerForce >0.40 && throwerForce < 0.43f)
             scoreIncrease += perfectThrowBonus;
         
-        // Increasing the score and updating its UI text
-        opponent.GetComponent<Opponent>().IncreaseScore(scoreIncrease);
-        opponent.GetComponent<Opponent>().scoreText.text = opponent.GetComponent<Opponent>().GetScore().ToString();
+        
+        opponent.IncreaseScore(scoreIncrease);
+        
+        // Updating the opponent UI elements
+        opponent.scoreText.text = opponent.GetScore().ToString();
+        if(opponent.gameObject.CompareTag("Player"))
+            opponent.gameObject.GetComponent<Player>().ShowPoints(scoreIncrease); 
 
-        return scoreIncrease;
     } 
+
+    private int CalculateScore(Opponent opponent)
+    {
+        return 0;
+    }
 
     private bool PlayerHasWon()
     {
