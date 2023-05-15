@@ -33,13 +33,7 @@ public class Pint : MonoBehaviour
         _collisionsManager = FindObjectOfType<CollisionsManager>();
         if (!_collisionsManager) Debug.LogError("Collisions manager not found in the scene");
     }
-
-    private void FixedUpdate() 
-    {
-
-    }
-
-
+    
     private void OnCollisionEnter(Collision other) 
     {
         if(other.gameObject.CompareTag("Floor"))
