@@ -1,11 +1,13 @@
+‘Challenge poco giocabile - codice strutturato in maniera piuttosto intricata e con molte bad practices difficili da ‘pulire; 
+inoltre non tutti i requirements richiesti sono stati sviluppati, per cui la challenge risulta purtroppo insufficiente.’
+
+
 KNOWN ISSUES (marked with _ ):
 _Swipe: it depends on Screen.Widht so it may be more fast or slow depending on screen res // I NORMALIZED IT, further test needed
-_Last android build takes some seconds in black screen before starting
 
 IN PROGRESS:
 deactivate backboard blink in case someone scored with it
 deactivate fire on opponent after he is on fire and misses a shot
-Tutorial board showing game mechanics, integrated into mainmenu scene
 _Player Throwing: For the first throw and sometimes during the game the inputManager takes the wrong start position (left-base angle of the screen
 
 IMPROVEMENTS:
@@ -22,6 +24,8 @@ Camera direction needs to change if the player respawns and rotates (not needed 
 
 COMPLETE:
 01 / 05
+_Last android build takes some seconds in black screen before starting
+Tutorial board showing game mechanics, integrated into mainmenu scene
 Added UI measures on the slider for perfect throw and backboard throw
 _RewardScene and JsonLoader not working on mobile build, Json loader errors in Awake and in StopGame
 Make the audio manager a singleton and add sounds for: RewardScene, onfire ball, increase volume onDrink
@@ -79,4 +83,4 @@ Score system
 Fix X throw force and use direction of Ball game object instead 
 Input system and slider update, Throw based on slider value
 FIX reset dello slider ad ogni impatto della palla col suolo (e non con un nuovo input del player)
-Inform about parabolic raycasting, to predict the right force before throwing
+Inform about parabolic line rendering, to predict the right force before throwing
