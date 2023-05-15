@@ -6,8 +6,10 @@ using System.Collections;
 public class Player : Opponent{
 
     private GameObject _forceSliderObj;
+
     private TMP_Text _pointsText;
-    
+    private float _pointsTextActiveTime = .4f;
+
     new void Awake()
     {
         base.Awake();
@@ -32,8 +34,7 @@ public class Player : Opponent{
 
     public void ShowPoints(int points)
     {
-        float showTime = .4f;
-        StartCoroutine(ActivatePointsText(points, showTime));
+        StartCoroutine(ActivatePointsText(points, _pointsTextActiveTime));
     }
 
     private IEnumerator ActivatePointsText(int points, float time)

@@ -97,7 +97,7 @@ public class Opponent : MonoBehaviour
 
         pint.transform.position  = transform.position;
         pint.transform.rotation = transform.rotation;
-        pint.GetComponent<Pint>().ResetRigitBody();        
+        pint.GetComponent<Pint>().ResetRigitBodyForces();        
         pint.GetComponent<Pint>().canBeThrown = true;
     }
 

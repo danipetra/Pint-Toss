@@ -3,30 +3,32 @@ using UnityEngine;
 
 public class TestInput : MonoBehaviour
 {
-    private InputManager inputManager;
-    private Camera mainCamera;
+    
     public GameObject trail;
+    
+    private InputManager _inputManager;
+    private Camera _mainCamera;
 
     private void Awake()
     {
-        inputManager = GetComponent<InputManager>();
-        mainCamera = Camera.main;
+        _inputManager = GetComponent<InputManager>();
+        _mainCamera = Camera.main;
     }
 
     private void Update() {
-        trail.transform.position = inputManager.GetScreenPosition();
+        trail.transform.position = _inputManager.GetScreenPosition();
     }
 
     private void OnEnable()
     {
-        inputManager.OnSwipeUp += OnSwipeUp;
-        inputManager.OnSwipeDown += OnSwipeDown;
+        _inputManager.OnSwipeUp += OnSwipeUp;
+        _inputManager.OnSwipeDown += OnSwipeDown;
     }
 
     private void OnDisable()
     {
-        inputManager.OnSwipeUp -= OnSwipeUp;
-        inputManager.OnSwipeDown -= OnSwipeDown;
+        _inputManager.OnSwipeUp -= OnSwipeUp;
+        _inputManager.OnSwipeDown -= OnSwipeDown;
     }
 
     private void OnSwipeUp() => Debug.Log("Up swipe detected");
@@ -34,7 +36,7 @@ public class TestInput : MonoBehaviour
 
     public IEnumerator TraceTrail(){
         while(true){
-            trail.transform.position = inputManager.GetScreenPosition();
+            trail.transform.position = _inputManager.GetScreenPosition();
             yield return null;// in this way you do not wait until next call
         }
     }

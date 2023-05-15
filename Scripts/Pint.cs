@@ -51,11 +51,12 @@ public class Pint : MonoBehaviour
         {
             _collisionsManager.HandleBucketCollision(this, _thrower.GetComponent<Opponent>());
             
+            //Increases score depending on bonuses and updates the UI elements
             _gameManager.HandleScoreIncrease(_thrower.GetComponent<Opponent>(), throwerForce, hasBackboardBlinkBonus);
         }    
     }
 
-    public void ResetRigitBody()
+    public void ResetRigitBodyForces()
     {
         _myRigidBody.useGravity = false;
         _myRigidBody.velocity = Vector3.zero;
